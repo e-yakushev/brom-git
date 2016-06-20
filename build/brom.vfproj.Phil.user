@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<VisualStudioUserFile ProjectCreator="Intel Fortran" Keyword="Console Application" Version="11.0" ProjectIdGuid="{1A9E359F-92F5-450B-9B77-B8EF9342EADC}">
-	<Configurations>
-		<Configuration Name="Debug|Win32" WorkingDirectory="E:/Users/Phil/Saelen1/brom/data"/>
-		<Configuration Name="Release|Win32"/>
-		<Configuration Name="MinSizeRel|Win32"/>
-		<Configuration Name="RelWithDebInfo|Win32"/></Configurations></VisualStudioUserFile>
