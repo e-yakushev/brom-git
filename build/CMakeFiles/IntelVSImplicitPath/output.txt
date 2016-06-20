@@ -1,0 +1,31 @@
+Change Dir: e:/Users/EYA/GMD/Sleipner_final/brom/build/CMakeFiles/IntelVSImplicitPath
+
+Run Build Command:"C:/Program Files (x86)/Microsoft Visual Studio 12.0/Common7/IDE/devenv.com" "IntelFortranImplicit.sln" "/build" "Debug" "/project" "ALL_BUILD"
+
+Microsoft Visual Studio 2013 Version 12.0.40629.0.
+Copyright (C) Microsoft Corp. All rights reserved.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+1>------ Build started: Project: ZERO_CHECK, Configuration: Debug Win32 ------
+1>  Checking Build System
+1>  CMake does not need to re-run because e:/Users/EYA/GMD/Sleipner_final/brom/build/CMakeFiles/IntelVSImplicitPath/CMakeFiles/generate.stamp is up-to-date.
+2>------ Build started: Project: FortranLib, Configuration: Debug Win32 ------
+2>Generating output.cmake
+2>Compiling with Intel(R) Visual Fortran Compiler XE 15.0.4.221 [IA-32]...
+2>hello.f
+2>Creating library...
+2>
+2>Build log written to  "file://e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\IntelVSImplicitPath\FortranLib.dir\Debug\BuildLog.htm"
+2>FortranLib - 0 error(s), 0 warning(s)
+3>------ Build started: Project: ALL_BUILD, Configuration: Debug Win32 ------
+3>  Building Custom Rule C:/Program Files (x86)/CMake/share/cmake-3.2/Modules/IntelVSImplicitPath/CMakeLists.txt
+3>  CMake does not need to re-run because e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\IntelVSImplicitPath\CMakeFiles\generate.stamp is up-to-date.
+========== Build: 3 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

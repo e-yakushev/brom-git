@@ -1,0 +1,248 @@
+The system is: Windows - 6.2 - AMD64
+Compiling the Fortran compiler identification source file "CMakeFortranCompilerId.F" succeeded.
+Compiler:  
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+Microsoft Visual Studio 2013 Version 12.0.40629.0.
+Copyright (C) Microsoft Corp. All rights reserved.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+1>------ Build started: Project: CompilerIdFortran, Configuration: Debug Win32 ------
+1>Compiling with Intel(R) Visual Fortran Compiler XE 15.0.4.221 [IA-32]...
+1>CMakeFortranCompilerId.F
+1>Intel(R) Visual Fortran Compiler XE for applications running on IA-32, Version 15.0.4.221 Build 20150407
+1>Copyright (C) 1985-2015 Intel Corporation.  All rights reserved.
+1>Linking...
+1>Microsoft (R) Incremental Linker Version 12.00.40629.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>/OUT:.\CompilerIdFortran.exe
+1>/INCREMENTAL:NO
+1>/MANIFEST
+1>/MANIFESTFILE:Debug\CompilerIdFortran.exe.intermediate.manifest
+1>"/MANIFESTUAC:level='asInvoker' uiAccess='false'"
+1>/DEBUG
+1>/PDB:e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\3.2.2\CompilerIdFortran\CompilerIdFortran.pdb
+1>/SUBSYSTEM:CONSOLE
+1>/IMPLIB:e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\3.2.2\CompilerIdFortran\CompilerIdFortran.lib
+1>Debug\CMakeFortranCompilerId.obj
+1>Embedding manifest...
+1>Performing Post-Build Event...
+1>CMAKE_Fortran_COMPILER=C:\Program Files (x86)\Intel\Composer XE 2015\bin\ia32\ifort.exe
+1>
+1>Build log written to  "file://e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\3.2.2\CompilerIdFortran\Debug\BuildLog.htm"
+1>CompilerIdFortran - 0 error(s), 0 warning(s)
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+
+
+Compilation of the Fortran compiler identification source "CMakeFortranCompilerId.F" produced "CompilerIdFortran.exe"
+
+Compilation of the Fortran compiler identification source "CMakeFortranCompilerId.F" produced "CompilerIdFortran.pdb"
+
+Compilation of the Fortran compiler identification source "CMakeFortranCompilerId.F" produced "CompilerIdFortran.u2d"
+
+Compilation of the Fortran compiler identification source "CMakeFortranCompilerId.F" produced "CompilerIdFortran.vfproj"
+
+The Fortran compiler identification is Intel, found in "e:/Users/EYA/GMD/Sleipner_final/brom/build/CMakeFiles/3.2.2/CompilerIdFortran/CompilerIdFortran.exe"
+
+Determining if the Fortran compiler works passed with the following output:
+Change Dir: e:/Users/EYA/GMD/Sleipner_final/brom/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/Microsoft Visual Studio 12.0/Common7/IDE/devenv.com" "CMAKE_TRY_COMPILE.sln" "/build" "Debug" "/project" "cmTryCompileExec213504770"
+
+Microsoft Visual Studio 2013 Version 12.0.40629.0.
+Copyright (C) Microsoft Corp. All rights reserved.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+1>------ Build started: Project: cmTryCompileExec213504770, Configuration: Debug Win32 ------
+1>Compiling with Intel(R) Visual Fortran Compiler XE 15.0.4.221 [IA-32]...
+1>testFortranCompiler.f
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.3.9600.17336
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>Microsoft (R) Incremental Linker Version 12.00.40629.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>/OUT:e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec213504770.exe
+1>/VERSION:0.0
+1>/MANIFEST
+1>/MANIFESTFILE:cmTryCompileExec213504770.dir\Debug\cmTryCompileExec213504770.exe.intermediate.manifest
+1>"/MANIFESTUAC:level='asInvoker' uiAccess='false'"
+1>/DEBUG
+1>/PDB:e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec213504770.pdb
+1>/SUBSYSTEM:CONSOLE
+1>/IMPLIB:e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec213504770.lib
+1>user32.lib
+1>/machine:X86
+1>/debug
+1>/INCREMENTAL
+1>cmTryCompileExec213504770.dir\Debug\testFortranCompiler.obj
+1>cmTryCompileExec213504770.dir\Debug\cmTryCompileExec213504770.exe.embed.manifest.res
+1>Embedding manifest...
+1>
+1>Build log written to  "file://e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\cmTryCompileExec213504770.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec213504770 - 0 error(s), 0 warning(s)
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+
+
+Detecting Fortran compiler ABI info compiled with the following output:
+Change Dir: e:/Users/EYA/GMD/Sleipner_final/brom/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/Microsoft Visual Studio 12.0/Common7/IDE/devenv.com" "CMAKE_TRY_COMPILE.sln" "/build" "Debug" "/project" "cmTryCompileExec1524085835"
+
+Microsoft Visual Studio 2013 Version 12.0.40629.0.
+Copyright (C) Microsoft Corp. All rights reserved.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+1>------ Build started: Project: cmTryCompileExec1524085835, Configuration: Debug Win32 ------
+1>Compiling with Intel(R) Visual Fortran Compiler XE 15.0.4.221 [IA-32]...
+1>CMakeFortranCompilerABI.F
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.3.9600.17336
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>Microsoft (R) Incremental Linker Version 12.00.40629.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>/OUT:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1524085835.exe
+1>/VERSION:0.0
+1>/MANIFEST
+1>/MANIFESTFILE:cmTryCompileExec1524085835.dir\Debug\cmTryCompileExec1524085835.exe.intermediate.manifest
+1>"/MANIFESTUAC:level='asInvoker' uiAccess='false'"
+1>/DEBUG
+1>/PDB:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec1524085835.pdb
+1>/SUBSYSTEM:CONSOLE
+1>/IMPLIB:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1524085835.lib
+1>/machine:X86
+1>-v
+1>/debug
+1>/INCREMENTAL
+1>cmTryCompileExec1524085835.dir\Debug\CMakeFortranCompilerABI.obj
+1>cmTryCompileExec1524085835.dir\Debug\cmTryCompileExec1524085835.exe.embed.manifest.res
+1>LINK : warning LNK4044: unrecognized option '/v'; ignored
+1>Embedding manifest...
+1>
+1>Build log written to  "file://e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\cmTryCompileExec1524085835.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec1524085835 - 0 error(s), 1 warning(s)
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+
+
+Parsed Fortran implicit link information from above output:
+  link line regex: [^( *|.*[/\])(CMAKE_LINKER-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: e:/Users/EYA/GMD/Sleipner_final/brom/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"C:/Program Files (x86)/Microsoft Visual Studio 12.0/Common7/IDE/devenv.com" "CMAKE_TRY_COMPILE.sln" "/build" "Debug" "/project" "cmTryCompileExec1524085835"]
+  ignore line: []
+  ignore line: [Microsoft Visual Studio 2013 Version 12.0.40629.0.]
+  ignore line: [Copyright (C) Microsoft Corp. All rights reserved.]
+  ignore line: []
+  ignore line: [Package 'IFLangServicePackage' failed to load.]
+  ignore line: []
+  ignore line: [Package 'IFLangServicePackage' failed to load.]
+  ignore line: []
+  ignore line: [Package 'IFLangServicePackage' failed to load.]
+  ignore line: []
+  ignore line: [Package 'IFLangServicePackage' failed to load.]
+  ignore line: [1>------ Build started: Project: cmTryCompileExec1524085835, Configuration: Debug Win32 ------]
+  ignore line: [1>Compiling with Intel(R) Visual Fortran Compiler XE 15.0.4.221 [IA-32]...]
+  ignore line: [1>CMakeFortranCompilerABI.F]
+  ignore line: [1>Compiling manifest to resources...]
+  ignore line: [1>Microsoft (R) Windows (R) Resource Compiler Version 6.3.9600.17336]
+  ignore line: [1>Copyright (C) Microsoft Corporation.  All rights reserved.]
+  ignore line: [1>Linking...]
+  ignore line: [1>Microsoft (R) Incremental Linker Version 12.00.40629.0]
+  ignore line: [1>Copyright (C) Microsoft Corporation.  All rights reserved.]
+  ignore line: [1>/OUT:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1524085835.exe]
+  ignore line: [1>/VERSION:0.0]
+  ignore line: [1>/MANIFEST]
+  ignore line: [1>/MANIFESTFILE:cmTryCompileExec1524085835.dir\Debug\cmTryCompileExec1524085835.exe.intermediate.manifest]
+  ignore line: [1>"/MANIFESTUAC:level='asInvoker' uiAccess='false'"]
+  ignore line: [1>/DEBUG]
+  ignore line: [1>/PDB:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec1524085835.pdb]
+  ignore line: [1>/SUBSYSTEM:CONSOLE]
+  ignore line: [1>/IMPLIB:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1524085835.lib]
+  ignore line: [1>/machine:X86]
+  ignore line: [1>-v]
+  ignore line: [1>/debug]
+  ignore line: [1>/INCREMENTAL]
+  ignore line: [1>cmTryCompileExec1524085835.dir\Debug\CMakeFortranCompilerABI.obj]
+  ignore line: [1>cmTryCompileExec1524085835.dir\Debug\cmTryCompileExec1524085835.exe.embed.manifest.res]
+  ignore line: [1>LINK : warning LNK4044: unrecognized option '/v']
+  ignore line: [ ignored]
+  ignore line: [1>Embedding manifest...]
+  ignore line: [1>]
+  ignore line: [1>Build log written to  "file://e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\cmTryCompileExec1524085835.dir\Debug\BuildLog.htm"]
+  ignore line: [1>cmTryCompileExec1524085835 - 0 error(s), 1 warning(s)]
+  ignore line: [========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========]
+  ignore line: []
+  implicit libs: []
+  implicit dirs: []
+  implicit fwks: []
+
+
+Determining if the Fortran compiler supports Fortran 90 passed with the following output:
+Change Dir: e:/Users/EYA/GMD/Sleipner_final/brom/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"C:/Program Files (x86)/Microsoft Visual Studio 12.0/Common7/IDE/devenv.com" "CMAKE_TRY_COMPILE.sln" "/build" "Debug" "/project" "cmTryCompileExec2351943992"
+
+Microsoft Visual Studio 2013 Version 12.0.40629.0.
+Copyright (C) Microsoft Corp. All rights reserved.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+
+Package 'IFLangServicePackage' failed to load.
+1>------ Build started: Project: cmTryCompileExec2351943992, Configuration: Debug Win32 ------
+1>Compiling with Intel(R) Visual Fortran Compiler XE 15.0.4.221 [IA-32]...
+1>testFortranCompilerF90.f90
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.3.9600.17336
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>Microsoft (R) Incremental Linker Version 12.00.40629.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>/OUT:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec2351943992.exe
+1>/VERSION:0.0
+1>/MANIFEST
+1>/MANIFESTFILE:cmTryCompileExec2351943992.dir\Debug\cmTryCompileExec2351943992.exe.intermediate.manifest
+1>"/MANIFESTUAC:level='asInvoker' uiAccess='false'"
+1>/DEBUG
+1>/PDB:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec2351943992.pdb
+1>/SUBSYSTEM:CONSOLE
+1>/IMPLIB:E:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec2351943992.lib
+1>user32.lib
+1>/machine:X86
+1>/debug
+1>/INCREMENTAL
+1>cmTryCompileExec2351943992.dir\Debug\testFortranCompilerF90.obj
+1>cmTryCompileExec2351943992.dir\Debug\cmTryCompileExec2351943992.exe.embed.manifest.res
+1>Embedding manifest...
+1>
+1>Build log written to  "file://e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\CMakeTmp\cmTryCompileExec2351943992.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec2351943992 - 0 error(s), 0 warning(s)
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+
+

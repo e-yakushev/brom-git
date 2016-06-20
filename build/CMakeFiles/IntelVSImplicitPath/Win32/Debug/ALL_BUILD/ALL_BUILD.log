@@ -1,0 +1,10 @@
+﻿Build started 20.06.2016 13:54:11.
+     1>Project "e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\IntelVSImplicitPath\ALL_BUILD.vcxproj" on node 2 (Build target(s)).
+     1>CustomBuild:
+         Building Custom Rule C:/Program Files (x86)/CMake/share/cmake-3.2/Modules/IntelVSImplicitPath/CMakeLists.txt
+         CMake does not need to re-run because e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\IntelVSImplicitPath\CMakeFiles\generate.stamp is up-to-date.
+     1>Done Building Project "e:\Users\EYA\GMD\Sleipner_final\brom\build\CMakeFiles\IntelVSImplicitPath\ALL_BUILD.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.17
