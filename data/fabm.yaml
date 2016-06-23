@@ -94,11 +94,11 @@ instances:
       DIC: niva_brom_carb/DIC
       Alk: niva_brom_carb/Alk
       Hplus: niva_brom_carb/Hplus
-      Kp1: niva_brom_eqconst/Kp1
-      Kp2: niva_brom_eqconst/Kp2
-      Kp3: niva_brom_eqconst/Kp3
-      Knh4: niva_brom_eqconst/Knh4
-      KSi: niva_brom_eqconst/KSi
+#      Kp1: niva_brom_eqconst/Kp1
+#      Kp2: niva_brom_eqconst/Kp2
+#      Kp3: niva_brom_eqconst/Kp3
+#      Knh4: niva_brom_eqconst/Knh4
+#      KSi: niva_brom_eqconst/KSi
 #--------------------------------------------------------------------------
   niva_brom_redox:
     initialization:
@@ -240,7 +240,7 @@ instances:
       PO4: niva_brom_bio/PO4
       PON: niva_brom_bio/PON
       DON: niva_brom_bio/DON
-      Wsed: niva_brom_bio/Wsed
+#      Wsed: niva_brom_bio/Wsed
       Kp1: niva_brom_eqconst/Kp1
       Kp2: niva_brom_eqconst/Kp2
       Kp3: niva_brom_eqconst/Kp3
@@ -258,23 +258,23 @@ instances:
       Ca: niva_brom_carb/Ca
 # REFERENCES:
 #  Alldredge, A.L. and Gotschalk, C., 1988. In situ settling behavior of marine snow. Limnology and Oceanography, 33(3), pp.339-351.
-#  Boudreau, B. P.: A method-of-lines code for carbon and nutrient diagenesis in aquatic sediments, Comput. Geosci., 22(5), 479–496, doi:10.1016/0098-3004(95)00115-8, 1996.
-#  Burchard H., Bolding K., Kühn W., Meister A., Neumann T. and Umlauf L., 2006. Description of a flexible and extendable physical–biogeochemical model system for the water column. Journal of Marine Systems, 61(3), 180-211.
+#  Boudreau, B. P.: A method-of-lines code for carbon and nutrient diagenesis in aquatic sediments, Comput. Geosci., 22(5), 479-496, doi:10.1016/0098-3004(95)00115-8, 1996.
+#  Burchard H., Bolding K., Khn W., Meister A., Neumann T. and Umlauf L., 2006. Description of a flexible and extendable physicalbiogeochemical model system for the water column. Journal of Marine Systems, 61(3), 180-211.
 #  Dickson AG. 1990. Thermodynamics of the dissociation of boric acid in synthetic seawater from 273.15 to 318.15 K. Deep-Sea Research Part a-Oceanographic Research Papers. 37:755-766
 #  Dickson, A.G., Sabine, C.L. and Christian, J.R., 2007. Guide to Best Practices for Ocean CO2 Measurements.
 #  DOE (1994) Handbook of methods for the analysis of the various parameters of the carbon dioxide system in sea water; version 2, A. G. Dickson & C. Goyet, eds., ORNL/CDIAC-74.
-#  Gregoire M. and Lacroix G., 2001. Study of the oxygen budget of the Black Sea waters using a 3D coupled hydrodynamical–biogeochemical model. Journal of marine systems, 31(1), pp.175-202.
+#  Gregoire M. and Lacroix G., 2001. Study of the oxygen budget of the Black Sea waters using a 3D coupled hydrodynamicalbiogeochemical model. Journal of marine systems, 31(1), pp.175-202.
 #  Konovalov, S.K., Murray, J.W., Luther, G.W.,  Tebo, B.M., 2006. Processes controlling the Redox budget for oxic/anoxic water column of the Black Sea. Deep Sea Research (II) 53: 1817-1841. 
 #  Link JS, Griswold CA, Methratta ET, Gunnard J, Editors. 2006. Documentation for the Energy Modeling and Analysis eXercise (EMAX). US Dep. Commer., Northeast Fish. Sci. Cent. Ref. Doc. 06-15; 166 p.
 #  Millero FJ , 1995 Thermodynamics of the carbon dioxide system in the oceans. Geochimica et Cosmochimica Acta 59 (4), 661-677
-#  Luff R., Haeckel M., and Wallmann K. 2001. Robust and fast FORTRAN and MATLAB libraries to calculate pH distributions in marine systems, Comput. Geosci., 27, 157–169
-#  Popova EE, Srokosz MA. 2009. Modelling the ecosystem dynamics at the Iceland-Faeroes Front: Biophysical interactions, J. Mar. Syst., 77(1-2), 182–196, doi:10.1016/j.jmarsys.2008.12.005, 2009.
+#  Luff R., Haeckel M., and Wallmann K. 2001. Robust and fast FORTRAN and MATLAB libraries to calculate pH distributions in marine systems, Comput. Geosci., 27, 157169
+#  Popova EE, Srokosz MA. 2009. Modelling the ecosystem dynamics at the Iceland-Faeroes Front: Biophysical interactions, J. Mar. Syst., 77(1-2), 182196, doi:10.1016/j.jmarsys.2008.12.005, 2009.
 #  Savchuk O. 2002. Nutrient biogeochemical cycles in the Gulf of Riga: scaling up field studies with a mathematical model. J. Mar. Syst. 32: 253-280.
 #  Volkov II. 1984. Geokhimiya Sery v Osadkakh Okeana (Geochemistry of Sulfur in Ocean Sedi-ments), Nauka, Moscow, USSR.
-#  Van Cappellen P., Wang, Y. F. 1996: Cycling of iron and manganese in surface sediments: A general theory for the coupled transport and reaction of carbon, oxygen, nitrogen, sulfur, iron, and manganese, Am. J. Sci., 296(3), 197–243, doi:10.2475/ajs.296.3.197, 1996.
+#  Van Cappellen P., Wang, Y. F. 1996: Cycling of iron and manganese in surface sediments: A general theory for the coupled transport and reaction of carbon, oxygen, nitrogen, sulfur, iron, and manganese, Am. J. Sci., 296(3), 197243, doi:10.2475/ajs.296.3.197, 1996.
 #  Weiss RF. 1974 Carbon dioxide in water and seawater: the solubility of a non-ideal gas.Marine Chemistry 2:203-215.
-#  Yakushev E., Neretin L., 1997. One-dimensional modelling of nitrogen and sulphur cycles in the aphotic zones of the Black Sea and Arabian Sea. Global Biogeochem. Cycles 11 Ž3.,401–414.
-#  Yakushev EV, Pollehne F., Jost G., Kuznetsov I., Schneider B., Umlauf L. 2007. Analysis of the water column oxic/anoxic interface in the Black and Baltic seas with a numerical model, Mar. Chem., 107(3), 388–410.
-#  Yakushev E. 2013. RedOx Layer Model: A Tool for Analysis of the Water Column Oxic/Anoxic Interface Processes. In: E.V.Yakushev (ed.) Chemical Structure of Pelagic Redox Interfaces: Observation and Modeling, Hdb Env Chem (2013) 22: 203–234, DOI 10.1007/698_2012_145, Springer-Verlag Berlin Heidelberg 
+#  Yakushev E., Neretin L., 1997. One-dimensional modelling of nitrogen and sulphur cycles in the aphotic zones of the Black Sea and Arabian Sea. Global Biogeochem. Cycles 11 3.,401414.
+#  Yakushev EV, Pollehne F., Jost G., Kuznetsov I., Schneider B., Umlauf L. 2007. Analysis of the water column oxic/anoxic interface in the Black and Baltic seas with a numerical model, Mar. Chem., 107(3), 388410.
+#  Yakushev E. 2013. RedOx Layer Model: A Tool for Analysis of the Water Column Oxic/Anoxic Interface Processes. In: E.V.Yakushev (ed.) Chemical Structure of Pelagic Redox Interfaces: Observation and Modeling, Hdb Env Chem (2013) 22: 203-234, DOI 10.1007/698_2012_145, Springer-Verlag Berlin Heidelberg 
 # IMPORTANT !!!! _ <TAB> is NOT allowed here, used <Space> only !!!!
 
