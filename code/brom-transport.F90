@@ -5,7 +5,7 @@
 ! It is distributed in the hope that it will be useful, but WITHOUT ANY
 ! WARRANTY; without even the implied warranty of MERCHANTABILITY or
 ! FITNESS FOR A PARTICULAR PURPOSE. A copy of the license is provided in
-! the COPYING file at the root of the FABM distribution.
+! the COPYING file at the root of the BROM distribution.
 !-----------------------------------------------------------------------
 ! Original author(s): Evgeniy Yakushev, Shamil Yakubov,
 !                     Elizaveta Protsenko, Phil Wallhead
