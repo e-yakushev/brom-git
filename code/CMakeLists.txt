@@ -52,19 +52,23 @@ add_executable(brom WIN32
                ids.F90
                tridiagonal.F90
                util.F90)
+
 set_property(TARGET brom APPEND PROPERTY INCLUDE_DIRECTORIES "${FABM_INCLUDE_DIRS}")
 set_property(TARGET brom APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${FABM_INCLUDE_DIRS}")
 set_property(TARGET brom PROPERTY Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules)
 set_property(TARGET brom APPEND PROPERTY INCLUDE_DIRECTORIES "${FABM_INCLUDE_DIRS}")
-if(WIN32)
-set_property(TARGET brom APPEND PROPERTY COMPILE_FLAGS "/nofpp")
-endif()
+
 target_link_libraries(brom ${FABM_LIBRARIES})
 target_link_libraries(brom "${NetCDF_LIBRARIES}")
+
+if(${CMAKE_Fortran_COMPILER_ID} STREQUAL "Intel")
+  if(WIN32)
+    set_property(TARGET brom APPEND PROPERTY COMPILE_FLAGS "/nofpp")
+    target_compile_options(brom PRIVATE /nothreads /libs:static /libs:qwin)
+  endif()
+endif()
+
 if (NetCDF_STATIC_MSVC_BUILD)
   set_property(TARGET brom PROPERTY LINK_FLAGS_DEBUG "/NODEFAULTLIB:\"libcmt\"")
   set_property(TARGET brom PROPERTY LINK_FLAGS_DEBUG "/NODEFAULTLIB:\"libcmtd\"")
-endif()
-if(WIN32)
-target_compile_options(brom PRIVATE /nothreads /libs:static /libs:qwin)
 endif()
