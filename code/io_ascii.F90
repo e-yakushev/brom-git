@@ -233,7 +233,7 @@
     do
         if (.not.associated(current)) exit
         if (trim(initname) == trim(current%initname)) then
-            outname = current%outname
+            outname = trim(current%outname)
             return
         end if
         current => current%next

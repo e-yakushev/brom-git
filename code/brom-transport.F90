@@ -418,7 +418,7 @@
     show_nan = get_brom_par("show_nan")
     show_nan_kztCFL = get_brom_par("show_nan_kztCFL")
     show_nan_wCFL = get_brom_par("show_nan_wCFL")
-    idt = int(1./dt)                                      !number of cycles per day
+    idt = int(1._rk/dt)                                      !number of cycles per day
     model_year = 0
     kzti = 0.0_rk
 
