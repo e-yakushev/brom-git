@@ -1,16 +1,3 @@
-! This file is part of Bottom RedOx Model (BROM, v.1.0).
-! BROM is free software: you can redistribute it and/or modify it under
-! the terms of the GNU General Public License as published by the Free
-! Software Foundation (https://www.gnu.org/licenses/gpl.html).
-! It is distributed in the hope that it will be useful, but WITHOUT ANY
-! WARRANTY; without even the implied warranty of MERCHANTABILITY or
-! FITNESS FOR A PARTICULAR PURPOSE. A copy of the license is provided in
-! the COPYING file at the root of the FABM distribution.
-!-----------------------------------------------------------------------
-! Original author(s): Phil Wallhead
-!-----------------------------------------------------------------------
-
-
 !#include"cppdefs.h"
 !-----------------------------------------------------------------------
 !BOP
