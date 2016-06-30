@@ -35,9 +35,11 @@ At first you must download [FABM] and do all prerequisites it needs (you should 
 
   or
 
-  You can manually greate build folder, copy to there files from `/data` folder, execute command from your build folder: 
+  You can greate build folder manually: creat it, copy there files from `/data` folder, then execute command:
 
   `$ cmake path/to/BROM/code -DFABM_BASE=$FABMDIR`
+
+  from it.
 
 4. Compile the code
 
@@ -75,7 +77,7 @@ At first you must download [FABM] and do all prerequisites it needs (you should 
 
 4. Compile the code
 
-  After generating the build system, build the software, either by opening Visual Studio on Windows and choosing “Build All”, or typing “make” if using a build system based on makefiles.
+  After generating the build system, you should build the software. You can do either by opening Visual Studio and choosing “Build All”, or typing “make” if using a build system based on makefiles.
 
 5. Run BROM
 
