@@ -7,7 +7,7 @@ Bottom RedOx Model (BROM, v.1.0): a coupled benthic-pelagic model for simulation
 * Intel Fortran Compiler version 12.1 or higher
 
 ## How to use
-At first you must download [FABM] and do all prerequisites it needs (you should have compliant compiler, [CMake], and [NetCDF] Fortran library compiled with the same Fortran compiler as used for compiling BROM & FABM. For the VisualStudio solution under Windows pre-compiled NetCDF libraries are provided.) Then:
+At first you must download [FABM] and do all prerequisites it needs (you should have compliant compiler, [Git], [CMake], and [NetCDF] Fortran library compiled with the same Fortran compiler as used for compiling BROM & FABM. For the VisualStudio solution under Windows pre-compiled NetCDF libraries are provided.) Then:
 
 ## Linux(bash shell):
 1. Download BROM
@@ -29,6 +29,9 @@ At first you must download [FABM] and do all prerequisites it needs (you should 
   export NCDIR='/path/to/netcdf'
   export LD_LIBRARY_PATH=$NCDIR/lib:$LD_LIBRARY_PATH
   ```
+
+  Don't forget reload .bashrc `$ source ~/.bashrc`
+
 3. Make a build 
 
   Enter brom-git folder and execute `$ bash build_brom.sh`
@@ -57,6 +60,8 @@ At first you must download [FABM] and do all prerequisites it needs (you should 
 
   `$ git clone https://github.com/e-yakushev/brom-git.git brom-git`
 
+  if using other software, use URL `https://github.com/e-yakushev/brom-git.git` and recommended directory is `..\brom-git`
+
 2. Add BROMDIR environment variable
 
   Windows 10 and Windows 8
@@ -77,12 +82,13 @@ At first you must download [FABM] and do all prerequisites it needs (you should 
 
 4. Compile the code
 
-  After generating the build system, you should build the software. You can do either by opening Visual Studio and choosing “Build All”, or typing “make” if using a build system based on makefiles.
+  After generating the build system, you should build the software. You can do either by opening Visual Studio and choosing **Build All**, or typing **make** if using a build system based on makefiles.
 
 5. Run BROM
 
   Now you have **brom.exe** file in your `path:\to\brom-git\build\Debug` directory. It needs 4 files as input data: brom.yaml, fabm.yaml, nns_annual.nc, start.dat. You can find it in `..\brom-git\data` folder. In case of running BROM under Visual Studio remember to specify the working directory (`..\brom-git\data`).
 
+[Git]:https://git-scm.com/downloads
 [FABM]:http://fabm.net
 [CMake]:https://cmake.org/
 [NetCDF]:http://www.unidata.ucar.edu/software/netcdf/docs/getting_and_building_netcdf.html
