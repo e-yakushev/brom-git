@@ -1,6 +1,6 @@
 # BROM
 ## About
-Bottom RedOx Model (BROM, v.1.0): a coupled benthic-pelagic model for simulation of water and sediment biogeochemistry.
+Bottom RedOx Model (BROM): a coupled benthic-pelagic model for simulation of water and sediment biogeochemistry.
 
 ## Supported compilers:
 * gfortran 4.7 or higher (part of GCC)
@@ -86,7 +86,7 @@ At first you must download [FABM] and do all prerequisites it needs (you should 
 
 5. Run BROM
 
-  Now you have **brom.exe** file in your `path:\to\brom-git\build\Debug` directory. It needs 4 files as input data: brom.yaml, fabm.yaml, nns_annual.nc, start.dat. You can find it in `..\brom-git\data` folder. In case of running BROM under Visual Studio remember to specify the working directory (`..\brom-git\data`).
+  Now you have **brom.exe** file in your `path:\to\brom-git\build\Debug(Release)` directory. It needs 4 files as input data: brom.yaml, fabm.yaml, nns_annual.nc, start.dat. You can find it in `..\brom-git\data` folder. In case of running BROM under Visual Studio remember to specify the working directory (`..\brom-git\data`).
 
 [Git]:https://git-scm.com/downloads
 [FABM]:http://fabm.net
