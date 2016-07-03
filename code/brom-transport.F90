@@ -1,4 +1,4 @@
-! This file is part of Bottom RedOx Model (BROM, v.1.0).
+! This file is part of Bottom RedOx Model (BROM, v.1.1).
 ! BROM is free software: you can redistribute it and/or modify it under
 ! the terms of the GNU General Public License as published by the Free
 ! Software Foundation (https://www.gnu.org/licenses/gpl.html).
