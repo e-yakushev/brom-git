@@ -80,7 +80,7 @@ instances:
 # ---- Stoichiometric coefficients ----
       r_n_p: 16.0      #! N[uM]/P[uM]
       r_o_n: 6.625     #! O2[uM]/N[uM]
-      r_c_n: 8.0       #! C[uM]/N[uM]  
+      r_c_n: 6.625     #! C[uM]/N[uM]  
       r_si_n: 1.0      #! Si[uM]/N[uM]   
     coupling:
       NO2: niva_brom_redox/NO2
