@@ -74,7 +74,7 @@
     integer                                     :: lat_rec, lon_rec, time_rec, h_rec, h_rec2, istart, iend
     integer                                     :: t_varid, s_varid, Eair_varid, hice_varid, kz_varid, z_varid, z2_varid, time_varid, &
                                                    lat_varid, lon_varid, hmix_rate_varid
-    integer, dimension(nf90_max_var_dims)       :: dimids1, dimids2
+    integer, dimension(nf90_max_var_dims)       :: dimids1, dimids2, dimidstemp
     integer, dimension(par_max)                 :: surf_varid, bot_varid, hmix_varid
     integer, allocatable, dimension(:)          :: inds, inds2
     real(rk), allocatable, dimension(:)         :: z_w2, z_w_error, time_temp, Eair_temp, hice_temp, z_temp, z_temp2
@@ -179,14 +179,30 @@
         call check_err(nf90_inq_varid(ncid, trim(ncinlat_name), lat_varid))
         call check_err(nf90_inq_varid(ncid, trim(ncinlon_name), lon_varid))
     end if
-    idim_z = minloc(dimids1,1,mask=dimids1.eq.z_varid)
-    idim_time = minloc(dimids1,1,mask=dimids1.eq.time_varid)
-    call check_err(nf90_inquire_dimension(ncid, dimids1(idim_z), len = h_rec))
-    call check_err(nf90_inquire_dimension(ncid, dimids1(idim_time), len = time_rec))
-    !use diffusivity variable to get length of second input depth variable (possibly same as first)
-    call check_err(nf90_inquire_variable(ncid, kz_varid, dimids = dimids2))
-    idim_z2 = minloc(dimids2,1,mask=dimids2.eq.z2_varid)
-    call check_err(nf90_inquire_dimension(ncid, dimids2(idim_z2), len = h_rec2))
+
+    !idim_z = minloc(dimids1,1,mask=dimids1.eq.z_varid)
+    !idim_time = minloc(dimids1,1,mask=dimids1.eq.time_varid)
+    !call check_err(nf90_inquire_dimension(ncid, dimids1(idim_z), len = h_rec))
+    !call check_err(nf90_inquire_dimension(ncid, dimids1(idim_time), len = time_rec))
+
+    !Obtain the lengths of dimension variables
+    call check_err(nf90_inquire_variable(ncid, z_varid, dimids = dimidstemp))
+    call check_err(nf90_inquire_dimension(ncid, dimidstemp(1), len = h_rec))
+    write(*,*) "length of first depth dimension for (T,S) and concentrations = ", h_rec
+
+    call check_err(nf90_inquire_variable(ncid, z2_varid, dimids = dimidstemp))
+    call check_err(nf90_inquire_dimension(ncid, dimidstemp(1), len = h_rec2))
+    write(*,*) "length of second depth dimension for (kz,w) = ", h_rec2
+
+    call check_err(nf90_inquire_variable(ncid, time_varid, dimids = dimidstemp))
+    call check_err(nf90_inquire_dimension(ncid, dimidstemp(1), len = time_rec))
+    write(*,*) "length of time dimension = ", time_rec
+
+
+    !!use diffusivity variable to get length of second input depth variable (possibly same as first)
+    !call check_err(nf90_inquire_variable(ncid, kz_varid, dimids = dimids2))
+    !idim_z2 = minloc(dimids2,1,mask=dimids2.eq.z2_varid)
+    !call check_err(nf90_inquire_dimension(ncid, dimids2(idim_z2), len = h_rec2))
     ll_rec = 1
     ll_sel = 1
     if (ndims.eq.4) then
@@ -318,7 +334,7 @@
     !First calculate the earliest year "year0" and corresponding time "time00" [s] at start of this year
     time0 = time_temp(1) !Assume that netcdf time is time in seconds since nc_year0-01-01 00:00:00
     year0 = -1
-    yeari = nc_year0
+    yeari = nc_year0     !First guess: first year in file year0 = reference year nc_year0
     timei = 0
     do while (year0.eq.-1)
         nyrdays = 365 + merge(1,0,(mod(yeari,4).eq.0))
@@ -339,6 +355,11 @@
     iend = -1
     yeari = year0
     timei = time00
+    write(*,*) "yeari = ", yeari
+    write(*,*) "timei = ", timei
+    write(*,*) "time_temp(1) = ", time_temp(1)
+    write(*,*) "days_in_yr = ", days_in_yr
+    write(*,*) "time_rec = ", time_rec
     do i=1,time_rec
         nyrdays = 365 + merge(1,0,(mod(yeari,4).eq.0))
         if ((time_temp(i)-timei).ge.(nyrdays*86400)) then !Advance the year and time counters
@@ -347,17 +368,17 @@
             nyrdays = 365 + merge(1,0,(mod(yeari,4).eq.0))
         end if
         if (yeari.eq.year.and.istart.eq.-1) istart = i    !istart = first index where (yeari==year)
-        if (i-istart.eq.days_in_yr) then
+        if (istart.ne.-1.and.(i-istart).eq.(days_in_yr-1)) then
             iend = i                                      !iend
             exit
         end if
         if (iend.eq.-1.and.i.eq.time_rec) iend = i        !...or the last index in the file
     end do
     ni = iend-istart+1
-    if (ni.lt.days_in_yr) then
-        write(*,*) "Could not find days_in_yr time inputs starting from 1st day of selected year (ni = ", ni, ", stopping"
-        stop
-    end if
+    !if (ni.lt.days_in_yr) then
+    !    write(*,*) "Could not find days_in_yr time inputs starting from 1st day of selected year (ni = ", ni, ", stopping"
+    !    stop
+    !end if
 
 
     !Check - these results can be validated by importing ocean_time into Matlab and converting to human dates using http://www.epochconverter.com/
@@ -370,6 +391,14 @@
     write(*,*) "Number of input time points: ni = ", ni
     write(*,*) "Initial input time in netCDF units for chosen year: time_temp(istart) = ", time_temp(istart)
     write(*,*) "Final input time in netCDF units for chosen year: time_temp(iend) = ", time_temp(iend)
+    if (istart.eq.-1) then
+        write(*,*) "Could not find any time points during selected year (year = ", year, "), stopping"
+        stop
+    end if
+    if (ni.lt.days_in_yr) then
+        write(*,*) "Could not find days_in_yr time inputs starting from 1st day of selected year (ni = ", ni, "), stopping"
+        stop
+    end if
 
 
     !Set the index vectors for subsampling the netCDF input (coarsening the vertical resolution)
@@ -443,6 +472,8 @@
         if (maxval(abs(z_w_error)).gt.1.0E-8_rk) then
             write(*,*) "Warning: Input layer midpoint depths are not located exactly halfway between input layer interface depths"
             write(*,*) "maxval(abs(z_w_error)) = ", maxval(abs(z_w_error))
+            write(*,*) "Correcting input layer midpoint depths"
+            z_w = 0.5_rk*(z_w2(1:k_wat_bbl)+z_w2(2:k_wat_bbl+1))
         end if
         !Infer layer thicknesses, midpoint depths and their increments from z_w2
         hz_w = z_w2(2:k_wat_bbl+1) - z_w2(1:k_wat_bbl)
