@@ -259,8 +259,8 @@
     allocate(wbio(i_max,k_max,par_max))    !vertical velocity (m/s, negative for sinking)
     allocate(sink(i_max,k_max+1,par_max))  !sinking flux (mmol/m2/s, positive downward)
     allocate(sink_per_day(i_max,k_max+1,par_max))
-    allocate(vv(i_max,k_max,1))
-    allocate(dvv(i_max,k_max,1))
+    allocate(vv(i_max,k_max,days_in_yr))
+    allocate(dvv(i_max,k_max,days_in_yr))
     allocate(Izt(i_max,k_max))
     allocate(pressure(i_max,k_max))
     allocate(kzti(i_max,k_max+1,par_max))
@@ -294,7 +294,7 @@
 
 
     !Initial volumes of layers:
-    vv(i_water,1:k_max,1) = 1.0_rk
+    vv(:,:,:) = 0.0_rk
 
 
     !Make the (full) pressure variable to pass to FABM
@@ -398,13 +398,17 @@
     integer      :: dynamic_w_sed                    !1 to assume dynamic advection velocities in the sediments
     integer      :: show_maxmin, show_kztCFL, show_wCFL, show_nan, show_nan_kztCFL, show_nan_wCFL     !options for runtime output to screen
     integer      :: julianday, model_year
+    integer      :: i_ice
     real(rk)     :: cnpar                            !"Implicitness" parameter for GOTM vertical diffusion (set in brom.yaml)
     real(rk)     :: cc0                              !Resilient concentration (same for all variables)
     real(rk)     :: omega                            !angular frequency of sinusoidal forcing = 2*pi/365 rads/day
     real(rk)     :: O2stat                           !oxygen status of sediments (factor modulating the bioirrigation rate)
     real(rk)     :: a1_bioirr                        !to detect whether or not bioirrigation is activated
+    real(rk)     :: hice_max
+    real(rk)     :: dhice(365)
     real(rk), parameter :: pi=3.141592653589793_rk
     omega = 2.0_rk*pi/365.0_rk
+    i_ice = 2
 
     !Get parameters for the time-stepping and vertical diffusion / sedimentation
     cnpar = get_brom_par("cnpar")
@@ -421,7 +425,10 @@
     idt = int(1._rk/dt)                                      !number of cycles per day
     model_year = 0
     kzti = 0.0_rk
-
+    hice = max(0.0_rk,hice-0.02)! hice from ROMS  never reachs 0.0 !!!
+    hice_max =  maxval (hice(:))
+    dhice(1)=hice(1)-hice(365)
+    dhice(2:365)=hice(2:365)-hice(1:364)
 
     !Master time step loop over days
     write(*,*) "Starting time stepping"
@@ -436,11 +443,7 @@
 
 
         !If including ice using horizontal coordinate, set ice volume in top cell of ice column
-        vv = 0.0_rk
-        if (i_max.eq.2) then
-            if (use_hice.eq.1) vv(1,k_min,1) = max(0.0_rk, hice(julianday))   ! i.e. vv() is an amount of solid matter in the cell
-        end if
-
+        dvv = 0.0_rk
 
         !Set time-varying Dirichlet boundary conditions for current julianday
         do ip=1,par_max
@@ -460,7 +463,15 @@
         call fabm_link_bulk_data(model, standard_variables%practical_salinity, s(:,:,julianday))
         if (use_hice.eq.1) then
             call fabm_link_horizontal_data(model, ice_thickness, hice(julianday:julianday))
-        end if
+            if (i_max.ge.2) then            !If including ice using horizontal coordinate, set ice volume in top cell of ice column
+                if (julianday.le.1) then
+                    dvv(i_ice,k_min,1) = 0.0_rk
+                else
+                     dvv(i_ice,k_min,1) = vv(i_ice,k_min,1)-max(0.0_rk, hice(julianday))  ! i.e. dvv() is daily avraged change of volume of ice
+                endif
+                vv(i_ice,k_min,1) = max(0.0_rk, hice(julianday))   !  vv() is a dayly averaged volume of ice
+            endif
+        endif
 
 
         !Subloop over timesteps in the course of one day
@@ -495,7 +506,9 @@
  !_____water_biogeochemistry_______!
             dcc = 0.0_rk
             do k=1,k_max
-                call fabm_do(model, i_water, i_water, k, dcc(i_water:i_water,k,:))
+!                call fabm_do(model, i_water, i_water, k, dcc(i_water:i_water,k,:))
+                 call fabm_do(model, i_water, i_ice, k, dcc(i_water:i_ice,k,:))
+
                 !Note: We MUST pass the range "i_water:i_water" to fabm_do -- a single value "i_water" will produce compiler error
             end do
             !Add surface fluxes if treated here
@@ -543,6 +556,22 @@
                 end if
             end do
 
+ !           goto 11
+
+ !________Excange with solid(ice)_________!
+            dcc = 0.0_rk
+            do ip= 1, par_max
+                    if (ip.ne.id_Het.or.ip.ne.id_Phy) then
+                        dcc(i_ice,k_min,ip) = &
+                             + min(0.0_rk,dhice(julianday)/(hice(julianday)+0.000001))*cc(i_ice,k_min,ip) &  !  ice melts
+                             + max(0.0_rk,dhice(julianday)/(hice(julianday)+0.000001))*cc(i_water,k_min,ip)  !  ice forms
+                        if (hice(julianday)>0.) dcc(i_ice,k_min,ip) =  dcc(i_ice,k_min,ip) + 1.e-12*(cc(i_water,k_min,ip)-cc(i_ice,k_min,ip)) !diffusion through the surface
+                        dcc(i_water,k_min,ip) = -dcc(  i_ice,k_min,ip)
+                        cc(i_water,k_min,ip) = max(cc0, cc(i_water,k_min,ip) + dt*dcc(i_water,k_min,ip)) !Simple Euler time step
+                        cc(i_ice,k_min,ip)   = max(cc0, cc(i_ice,k_min,ip)   + dt*dcc(  i_ice,k_min,ip)) !/vv(i_ice,k_min,1))!Simple Euler time step
+                    endif
+            end do
+
             !Check for NaNs (stopping if any found)
             do ip=1,par_max
                 if (any(isnan(cc(i_water,1:k_max,ip)))) then
@@ -588,14 +617,14 @@
 
         !Save .dat files for plotting with Grapher for Sleipner for days 72 and 240
         !Note: saving to ascii every day causes an appreciable decrease in speed of execution
-        if (julianday == 40) then
-            call saving_state_variables_diag('output_40_day.dat', model_year, julianday, i_max, k_max, par_max, par_name, z, hz, cc, vv, t, s, kz, &
-                model, extend_out = .true.)
-        endif
-        if (julianday == 330) then
-            call saving_state_variables_diag('output_330_day.dat', model_year, julianday, i_max, k_max, par_max, par_name, z, hz, cc, vv, t, s, kz, &
-                model, extend_out = .true.)
-        endif
+        !if (julianday == 40) then
+        !    call saving_state_variables_diag('output_40_day.dat', model_year, julianday, i_max, k_max, par_max, par_name, z, hz, cc, vv, t, s, kz, &
+        !        model, extend_out = .true.)
+        !endif
+        !if (julianday == 330) then
+        !    call saving_state_variables_diag('output_330_day.dat', model_year, julianday, i_max, k_max, par_max, par_name, z, hz, cc, vv, t, s, kz, &
+        !        model, extend_out = .true.)
+        !endif
         if (julianday == 365) then
             call saving_state_variables(trim(outfile_name), model_year, julianday, i_max, k_max, par_max, par_name, z, hz, cc, vv, t, s, kz)
         endif
