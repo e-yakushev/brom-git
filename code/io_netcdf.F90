@@ -284,7 +284,7 @@
         call check_err(nf90_get_var(ncid, t_varid, t_temp2))
         call check_err(nf90_get_var(ncid, s_varid, s_temp2))
         call check_err(nf90_get_var(ncid, kz_varid, kz_temp))
-        kz_temp2 = ncinkz_fac * kz_temp2
+        kz_temp = ncinkz_fac * kz_temp
         if (use_Eair.eq.1) then
             call check_err(nf90_get_var(ncid, Eair_varid, Eair_temp2))
             Eair_temp2 = ncinEair_fac * Eair_temp2
@@ -493,7 +493,7 @@
         hice = 0.0_rk !Default in case not read from hice_temp (use_hice = 0)
         if (use_hice.eq.1) hice(1:days_in_yr) = hice_temp(istart:istart+days_in_yr-1)
     end if
-    istart = istart + 2
+    !istart = istart + 2
     if (ndims.eq.4) then  !Assuming netcdf input dimensions (lat/lon,lat/lon,depth,time) for variables (t,s,kz)
         do i=1,days_in_yr !Loop over days_in_yr
             t_w(i_water,1:k_wat_bbl,i) = t_temp2(ll_sel(1),ll_sel(2),inds,istart+i-1)
@@ -502,8 +502,7 @@
                 !If not staggered, linearly interpolate to layer interfaces
                 kz_w(i_water,1,i)           = 0.0_rk
                 kz_w(i_water,2:k_wat_bbl,i) = kz_temp(inds(2:k_wat_bbl),istart+i-1) + 0.5_rk*hz_w(1:k_wat_bbl-1)*&
-                    (kz_temp(inds(2:k_wat_bbl),istart+i-1) - &
-                    kz_temp(inds(1:k_wat_bbl-1),istart+i-1))/dz_w(1:k_wat_bbl-1)
+                    (kz_temp(inds(2:k_wat_bbl),istart+i-1) - kz_temp(inds(1:k_wat_bbl-1),istart+i-1))/dz_w(1:k_wat_bbl-1)
                 kz_w(i_water,k_wat_bbl+1,i) = 0.0_rk
             end if
             if (nc_staggered_grid.eq.1) then
