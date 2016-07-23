@@ -164,7 +164,7 @@ instances:
       freq_sed:    1           # Sinking / bhc frequency (default = 1)
       year:        1990        # Selected year (for reading netCDF inputs)
       days_in_yr:  365         # Number of days in repeated period (typically 365 or 366, default = 365)
-      last_day:    3650        # Last day in simulation (~ days_in_yr * no. repeated years, default = 365)
+      last_day:    365         # Last day in simulation (~ days_in_yr * no. repeated years, default = 365)
       cc0:         1.0E-11     # Resilient (minimum) concentration for all variables [mmol/m3] (default = 1.0E-11 mmol/m3)
       surf_flux_with_diff: 0   # 1 to include surface fluxes in diffusion update, 0 to include in biogeochemical update (default = 0) 
 #
