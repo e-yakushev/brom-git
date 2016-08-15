@@ -16,7 +16,7 @@ instances:
       k_points_below_water: 17    # Number of levels below the water/BBL boundary (default = 20)
       i_min: 1                    # Minimum i number (default = 1)
       i_water: 1                  # Number of i for water column (default = 1)       
-      i_max: 1                    # Maximum i number  (default = 1)
+      i_max: 2                    # Maximum i number  (default = 1)
 #Note: (i_min,i_water,i_max) should be (1,1,1) for 1D applications
 #
 #
@@ -37,8 +37,8 @@ instances:
 #            a3top_niva_brom_bio_NO3: 60.
 #     3 for arbitrary Dirichlet, read from netCDF file (see I/O options to specify netCDF variable names)
 #
-#      bctype_bottom_niva_brom_bio_O2: 1
-#      bc_bottom_niva_brom_bio_O2: 0.
+      bctype_bottom_niva_brom_bio_O2: 1
+      bc_bottom_niva_brom_bio_O2: 0.
 #
       bctype_top_niva_brom_redox_SO4: 1
       bc_top_niva_brom_redox_SO4: 25000.
@@ -63,23 +63,23 @@ instances:
 #      bc_bottom_niva_brom_bio_NH4: 10.
 #
       bctype_top_niva_brom_bio_NO3: 2
-      a1top_niva_brom_bio_NO3: 1. # 3
-      a2top_niva_brom_bio_NO3: 1.
-      a3top_niva_brom_bio_NO3: 320.
+      a1top_niva_brom_bio_NO3: 1.5 # 3
+      a2top_niva_brom_bio_NO3: 1.5
+      a3top_niva_brom_bio_NO3: 240.
       bctype_bottom_niva_brom_bio_NO3: 1
       bc_bottom_niva_brom_bio_NO3: 0.
 #
       bctype_top_niva_brom_bio_PO4: 2
-      a1top_niva_brom_bio_PO4: 0.7 #0.8
-      a2top_niva_brom_bio_PO4: 0.7
-      a3top_niva_brom_bio_PO4: 320. #60.
+      a1top_niva_brom_bio_PO4: 0.5 #0.8
+      a2top_niva_brom_bio_PO4: 0.5
+      a3top_niva_brom_bio_PO4: 240. #60.
 #      bctype_bottom_niva_brom_bio_PO4: 1
 #      bc_bottom_niva_brom_bio_PO4: 10.
 #
       bctype_top_niva_brom_redox_Si: 2
       a1top_niva_brom_redox_Si: 1.5
       a2top_niva_brom_redox_Si: 1.5
-      a3top_niva_brom_redox_Si: 320.
+      a3top_niva_brom_redox_Si: 240.
 #      bctype_bottom_niva_brom_redox_Si: 1
 #      bc_bottom_niva_brom_redox_Si: 100.
 #
@@ -98,7 +98,7 @@ instances:
 #
 #
 ##---Ice model parameters--------------------------------------------------------------------------
-      use_hice: 0        # 1 to use ice thickness forcing "hice" from netCDF input
+      use_hice: 1        # 1 to use ice thickness forcing "hice" from netCDF input
 #
 #
 ##---Constant forcings-----------------------------------------------------------------------------
@@ -162,7 +162,7 @@ instances:
       dt:          0.0025      # Time step in [days] (default = 0.0025 days)
       freq_turb:   1           # Physical mixing time step = dt/freq_turb (default = 1)
       freq_sed:    1           # Sinking / bhc frequency (default = 1)
-      year:        1998        # Selected year (for reading netCDF inputs)
+      year:        2006        # Selected year (for reading netCDF inputs WARNING: This must be a year present in the netCDF file, and nc_year0 must be correctly specified below)
       days_in_yr:  365         # Number of days in repeated period (typically 365 or 366, default = 365)
       last_day:    3650        # Last day in simulation (~ days_in_yr * no. repeated years, default = 365)
       cc0:         1.0E-11     # Resilient (minimum) concentration for all variables [mmol/m3] (default = 1.0E-11 mmol/m3)
@@ -185,7 +185,7 @@ instances:
       kz_bbl_type:     1       # Type of variation of eddy diffusion kz(z) assumed over the benthic boundary layer:
                                #   0 => constant = kz_bbl_max, 1 => linear (~=> log-layer for velocity, Holtappels & Lorke, 2011)
                                #   This is only used if assuming a static kz_bbl (dynamic_kz_bbl = 0)
-      kz_bbl_max:      5.E-6   # Maximum eddy diffusivity in the benthic boundary layer [m2/s] (default = 1.0E-5 m2/s)
+      kz_bbl_max:      5.E-5   # Maximum eddy diffusivity in the benthic boundary layer [m2/s] (default = 1.0E-5 m2/s)
                                #   This is only used if assuming a static kz_bbl (dynamic_kz_bbl = 0)
       dbl_thickness:   0.0005  # Thickness of the diffusive boundary layer [m] (default = 0.0005 m = 0.5 mm)
                                #   Jorgensen and Revsbech (1985) quote a range 1-2 mm over the deep sea floor (Boudreau and Guinasso, 1982, Wimbush 1976)
@@ -243,9 +243,9 @@ instances:
 #
 ##---I/O options-----------------------------------------------------------------------------------
       input_type: 2                              # input forcing type: 0 for sinusoidal changes, 1 to read from ascii, 2 to read from netCDF (default)
-      ncoutfile_name: BROM_out.nc     # netCDF output file name
+      ncoutfile_name: BROM_out_K.nc     # netCDF output file name
       outfile_name: finish.dat                   # ascii output file name
-      port_initial_state: 1                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
+      port_initial_state: 0                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
       icfile_name: start.dat                   # ascii initial condition file name (needed if port_initial_state = 1)
 #The following are only used if reading input from netCDF (input_type = 2)
 #Note: NetCDF variables (temperature, salinity, diffusivity) must have either two dimensions (depth, time) or four dimensions ((latitude, longitude, depth , time) or (longitude, latitude, depth, time))
@@ -254,12 +254,12 @@ instances:
                                                  # Note that in both cases the water layer thickness is determined by the netCDF input, overriding water_layer_thickness above
       nc_staggered_grid: 1                       # 1 (default) to assume a staggered input grid, (t,s) at layer midpoints, kz on layer interfaces (e.g. ROMS, GOTM)
       nc_bottom_to_top: 1                        # 1 (default) if netCDF variables are stored with vertical index increasing from bottom to top (e.g. ROMS, GOTM)
-      nc_z_increasing_upward: 1                  # 1 if netCDF depth variables are increasing upward (e.g. if "depth" is negative) (default = 0)
-      ncinfile_name: nns_annual.nc               # netCDF input file name
-      ncintime_name: time                        # netCDF time dimension name [units since nc_year0-01-01 00:00:00]
-      nc_year0: 1998                             # reference year for netCDF time variable (default = 1970)
-      ncinz_name: z                              # netCDF depth dimension name for layer midpoints (rho points) [m]
-      ncinz2_name: z1                            # netCDF depth dimension name for layer interfaces (w points) [m]
+      nc_z_increasing_upward: 0                  # 1 if netCDF depth variables are increasing upward (e.g. if "depth" is negative) (default = 0)
+      ncinfile_name: KaraSea.nc        #nns_annual.nc               # netCDF input file name
+      ncintime_name: ocean_time                  # netCDF time dimension name [units since nc_year0-01-01 00:00:00]
+      nc_year0: 1970                             # reference year for netCDF time variable (default = 1970, WARNING: This must be correctly specified)
+      ncinz_name: depth                              # netCDF depth dimension name for layer midpoints (rho points) [m]
+      ncinz2_name: depth_w                            # netCDF depth dimension name for layer interfaces (w points) [m]
       ncinlat_name: lat                          # netCDF latitude dimension name (needed if reading 4D variables)
       ncinlon_name: lon                          # netCDF longitude dimension name (needed if reading 4D variables)
       ncinlat_sel: 1                             # Chosen latitude index (1,2,...,nlat) (needed if reading from 4D variables with nlat > 1)
@@ -277,7 +277,7 @@ instances:
 #These must be arrays of size [no. water column layers (= k_wat_bbl) * no. of days for all available years]
       ncint_name: temp                           # netCDF input temperature variable name [degC]
       ncins_name: salt                           # netCDF input salinity variable name [psu]
-      ncinkz_name: nus                           # netCDF input vertical diffusivity variable name [m2/s]
+      ncinkz_name: AKs                           # netCDF input vertical diffusivity variable name [m2/s]
       ncinkz_fac: 1.0                            # scale factor for netCDF input vertical diffusivity (default = 1.0)
 #
 #1D physical variables used for setting BROM forcings
@@ -338,10 +338,10 @@ instances:
 # Boudreau B.P., 1997. Diagenetic Models and Their Implementation, Springer-Verlag, Berlin.
 # Holzbecher, E., 2002. Advective flow in sediments under the influence of compaction. Hydrological Sciences 47(4), 641-649.
 # Link JS, Griswold CA, Methratta ET, Gunnard J, Editors. 2006. Documentation for the Energy Modeling and Analysis eXercise (EMAX). US Dep. Commer., Northeast Fish. Sci. Cent. Ref. Doc. 06-15; 166 p.
-# Meire, L., Soetaert, K.E.R., Meysman, F.J.R, 2013. Impact of global change on coastal oxygen dynamics and risk of hypoxia. Biogeosciences 10, 2633–2653.
-# Miele, C., Koretsky, C.M., Cappellen, P.V., 2001. Quantifying bioirrigation in aquatic sediments: An inverse modeling approach. Limnol. Oceanogr. 46(1), 164–177.
+# Meire, L., Soetaert, K.E.R., Meysman, F.J.R, 2013. Impact of global change on coastal oxygen dynamics and risk of hypoxia. Biogeosciences 10, 2633-2653.
+# Miele, C., Koretsky, C.M., Cappellen, P.V., 2001. Quantifying bioirrigation in aquatic sediments: An inverse modeling approach. Limnol. Oceanogr. 46(1), 164-177.
 # Mobley, C.D., Boss, E.S., 2012. Improved irradiances for use in ocean heating, primary production, and photo-oxidation calculations. Applied Optics 51(27), 6549-6560.
-# Schluter, M., Sauter, E., Hansen, H., Suess, E., 2000. Seasonal variations of bioirrigation in coastal sediments: Modelling of field data. Geochimica et Cosmochimica Acta 64(5), 821–834.
+# Schluter, M., Sauter, E., Hansen, H., Suess, E., 2000. Seasonal variations of bioirrigation in coastal sediments: Modelling of field data. Geochimica et Cosmochimica Acta 64(5), 821-834.
 # Soetaert, K., Herman, P.M.J., Middelburg, J.J., 1996. A model of early diagenetic processes from the shelf to abyssal depths. Geochimica et Cosmochimica Acta 60(6), 1019-1040.
-# Soetaert, K., Middelburg, J.J., 2009. Modeling eutrophication and oligotrophication of shallow-water marine systems: the importance of sediments under stratified and well-mixed conditions. Hydrobiologia 629:239–254.
+# Soetaert, K., Middelburg, J.J., 2009. Modeling eutrophication and oligotrophication of shallow-water marine systems: the importance of sediments under stratified and well-mixed conditions. Hydrobiologia 629:239-254.
 # Wimbush, M., 2012: The Physics of The Benthic Boundary Layer, in The Benthic Boundary Layer, edited by I. McCave.

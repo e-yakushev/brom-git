@@ -80,7 +80,7 @@ instances:
 # ---- Stoichiometric coefficients ----
       r_n_p: 16.0      #! N[uM]/P[uM]
       r_o_n: 6.625     #! O2[uM]/N[uM]
-      r_c_n: 8.0       #! C[uM]/N[uM]  
+      r_c_n: 6.625     #! C[uM]/N[uM]  
       r_si_n: 1.0      #! Si[uM]/N[uM]   
     coupling:
       NO2: niva_brom_redox/NO2
@@ -256,6 +256,41 @@ instances:
       CO3: niva_brom_carb/CO3
       pCO2: niva_brom_carb/pCO2
       Ca: niva_brom_carb/Ca
+#  niva_brom_metals_hg:
+#    initialization:
+#      Hg0: 0.0
+#      Hg2: 0.0
+#      MeHg: 0.0
+#      HgS: 0.0
+#    parameters:
+##---- Hg--------!
+#      K_hg0_irr_ox: 5.9       #! photo-oxidation of hg0    
+#      K_hg0_hg2: 1.4          #! Coef. of dark oxidation of Hg0  (Knightes, 2008)
+#      K_hg2_irr_red: 1.      #! photo-reduction of Hg2    
+#      K_hg2_hg0: 0.03         #! Coef. biotic reduction of Hg2  (Knightes, 2008)
+#      K_hg2_mehg: 0.01        #! Coef. of mercury methilation  (Knightes, 2008)
+#      K_mehg_irr_degr: 1.     #! photo-degradation of MeHg 
+#      K_mehg_hg2: 0.11        #! Coef. of demethylation of MeHg  (Knightes, 2008)
+#      K_hgs_form: 1.          #! Formation of HgS 
+#      K_hgs_ox: 1.            #! Oxidation of HgS 
+#      K_hgs_diss: 1.          #! Dissolution of HgS
+#      K_hgs: 1.               #! solubility product
+#----Point source parameters----! 
+#      Q_source: 8400.  ! Flux of produced water, (m3/d)= 8400 (350 m3/h, KLIFF)  
+#      R_layer: 1000.   ! Radius of water column affected by produced water (m) 
+#      Ba_source: 1000. ! Concentation in produced water (uM)  (107000-228000 ug/l, Neff,Lee,11)
+#      Fe2_source: 0.5  ! Concentation in produced water (uM)  (4200-11300 ug/l, Neff,Lee,11)
+#      O2_source: 50.   ! Concentation in produced water (uM)  (20 %, Neff,Lee,11)      
+#    coupling:
+#      SO4: niva_brom_redox/SO4
+#      O2: niva_brom_bio/O2 
+#      Fe2: niva_brom_redox/Fe2
+#      Fe3: niva_brom_redox/Fe3
+#      H2S: niva_brom_redox/H2S
+#      Baae: niva_brom_redox/Baae
+#      Bhae: niva_brom_redox/Bhae
+#      Baan: niva_brom_redox/Baan
+#      Bhan: niva_brom_redox/Bhan
 # REFERENCES:
 #  Alldredge, A.L. and Gotschalk, C., 1988. In situ settling behavior of marine snow. Limnology and Oceanography, 33(3), pp.339-351.
 #  Boudreau, B. P.: A method-of-lines code for carbon and nutrient diagenesis in aquatic sediments, Comput. Geosci., 22(5), 479-496, doi:10.1016/0098-3004(95)00115-8, 1996.

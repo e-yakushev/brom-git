@@ -39,6 +39,7 @@ find_path(FABM_BASE src/fabm.F90 DOC "Path to FABM source directory.")
 mark_as_advanced(CLEAR FABM_BASE)
 set(FABM_FORCED_HOST brom)
 add_subdirectory(${FABM_BASE}/src fabm)
+
 set(FABM_LIBRARIES fabm)
 set(FABM_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR}/fabm/modules)
 
@@ -56,7 +57,6 @@ add_executable(brom WIN32
 set_property(TARGET brom APPEND PROPERTY INCLUDE_DIRECTORIES "${FABM_INCLUDE_DIRS}")
 set_property(TARGET brom APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES "${FABM_INCLUDE_DIRS}")
 set_property(TARGET brom PROPERTY Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/modules)
-set_property(TARGET brom APPEND PROPERTY INCLUDE_DIRECTORIES "${FABM_INCLUDE_DIRS}")
 
 target_link_libraries(brom ${FABM_LIBRARIES})
 target_link_libraries(brom "${NetCDF_LIBRARIES}")
