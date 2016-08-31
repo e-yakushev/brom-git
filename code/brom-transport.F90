@@ -52,7 +52,7 @@
     real(rk), pointer, dimension(:)            :: pco2atm, windspeed, hice
     real(rk), pointer, dimension(:,:)          :: surf_flux, Izt, pressure
     real(rk), pointer, dimension(:,:,:)        :: t, s
-    real(rk), pointer, dimension(:,:,:)        :: vv, dvv, cc, dcc, dcc_R, wbio
+    real(rk), pointer, dimension(:,:,:)        :: vv, dvv, cc, cc_out, dcc, dcc_R, wbio
 
     !Surface and bottom forcings, used within brom-transport only
     real(rk), allocatable, dimension(:)        :: Eair
@@ -214,6 +214,10 @@
         call input_ascii_physics(z_w, dz_w, hz_w, k_wat_bbl, water_layer_thickness, t_w, s_w, kz_w, i_water, i_max, days_in_yr)
         allocate(Eair(days_in_yr))
         allocate(hice(days_in_yr))
+        allocate(cc_hmix_w(i_max,par_max,k_wat_bbl,days_in_yr))
+        allocate(hmix_rate_w(i_max,k_wat_bbl,days_in_yr))
+        cc_hmix_w = 0.0_rk
+        hmix_rate_w = 0.0_rk
         Eair = 0.0_rk
         hice = 0.0_rk
         write(*,*) "Done ascii input"
@@ -252,6 +256,7 @@
     allocate(u_b(i_max,k_max+1))
     allocate(wti(i_max,k_max+1,par_max))
     allocate(cc(i_max,k_max,par_max))
+    allocate(cc_out(i_max,k_max,par_max))
     allocate(dcc(i_max,k_max,par_max))
     allocate(dcc_R(i_max,k_max,par_max))
     allocate(fick(i_max,k_max+1,par_max))
@@ -397,6 +402,7 @@
     integer      :: surf_flux_with_diff              !1 to include surface fluxes in diffusion update, 0 to include in bgc update
     integer      :: dynamic_w_sed                    !1 to assume dynamic advection velocities in the sediments
     integer      :: show_maxmin, show_kztCFL, show_wCFL, show_nan, show_nan_kztCFL, show_nan_wCFL     !options for runtime output to screen
+    integer      :: bc_units_convert, sediments_units_convert !options for conversion of concentrations units in the sediment 
     integer      :: julianday, model_year
     real(rk)     :: cnpar                            !"Implicitness" parameter for GOTM vertical diffusion (set in brom.yaml)
     real(rk)     :: cc0                              !Resilient concentration (same for all variables)
@@ -418,10 +424,18 @@
     show_nan = get_brom_par("show_nan")
     show_nan_kztCFL = get_brom_par("show_nan_kztCFL")
     show_nan_wCFL = get_brom_par("show_nan_wCFL")
+    bc_units_convert = get_brom_par("bc_units_convert")
+    sediments_units_convert = get_brom_par("sediments_units_convert")
     idt = int(1._rk/dt)                                      !number of cycles per day
     model_year = 0
     kzti = 0.0_rk
 
+    !convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
+    if (bc_units_convert.eq.1) then
+        do ip=1,par_max
+            if (bctype_bottom(i_water,ip).eq.1) bc_bottom(i_water,ip) = bc_bottom(i_water,ip)/pF1(i_water,k_max,ip)
+        enddo
+    endif
 
     !Master time step loop over days
     write(*,*) "Starting time stepping"
@@ -583,8 +597,22 @@
         !Save output to netcdf every day
         fick_per_day = 86400.0_rk * fick
         sink_per_day = 86400.0_rk * sink
-        call save_netcdf(i_max, k_max, julianday, cc, t, s, kz, kzti, wti, model, z, hz, Eair, use_Eair, hice, use_hice, &
-        fick_per_day, sink_per_day, ip_sol, ip_par)
+
+        if (sediments_units_convert.eq.0) then 
+            call save_netcdf(i_max, k_max, julianday, cc, t, s, kz, kzti, wti, model, z, hz, Eair, use_Eair, hice, use_hice, &
+            fick_per_day, sink_per_day, ip_sol, ip_par)
+        else
+        !convert into observarional units in the sediments for dissolved (mass/pore water) and solids (mass/mass) with an exception for biota
+            cc_out(:,:,:)=cc(:,:,:)
+            do ip=1,par_max
+              if (ip.ne.id_Phy.or.ip.ne.id_Het.or.ip.ne.id_Baae.or.ip.ne.id_Baan.or.ip.ne.id_Bhae.or.ip.ne.id_Bhan) then 
+              cc_out(:,k_bbl_sed+1:k_max,:)=cc(:,k_bbl_sed+1:k_max,:)*pF1(:,k_bbl_sed:k_max-1,:)
+              endif
+            enddo
+            cc_out(:,2:k_max,:)=cc_out(:,1:k_max-1,:)   ! shift is needed for plotting with PyNCView
+            call save_netcdf(i_max, k_max, julianday, cc_out, t, s, kz, kzti, wti, model, z, hz, Eair, use_Eair, hice, use_hice, &
+            fick_per_day, sink_per_day, ip_sol, ip_par)
+        endif
 
         !Save .dat files for plotting with Grapher for Sleipner for days 72 and 240
         !Note: saving to ascii every day causes an appreciable decrease in speed of execution
@@ -672,6 +700,7 @@
     deallocate(pF1)
     deallocate(pF2)
     deallocate(cc)
+    deallocate(cc_out)
     deallocate(dcc)
     deallocate(vv)
     deallocate(dvv)

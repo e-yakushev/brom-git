@@ -475,13 +475,8 @@
 
     close(10)
 
-    end subroutine saving_state_variables
+                                        end subroutine saving_state_variables
 !=======================================================================================================================
-
-
-
-
-
 
 
 !=======================================================================================================================
@@ -588,7 +583,6 @@
     end do
     dz(k_max) = 0.0_rk
 
-
     !Record the vertical grid in an ascii output file
     open(10,FILE = 'Vertical_grid.dat')
     write(10,'(5h k   ,5hz[k]   ,6hdz[k]   ,6hhz[k] )')
@@ -681,7 +675,7 @@
 !!!---------------------------------------------------------------------------------------------------------------------
 
     !Write to output ascii file
-    open(12,file = 'Hydrophysics4.dat')
+    open(12,file = 'Hydrophysics.dat')
         do iday=1,days_in_yr
             do k=1,k_wat_bbl
                 write(12,'(2(1x,i4))',advance='NO') iday, k
@@ -784,6 +778,7 @@
                 *(abs(dens(k+1)-dens(k))/dz_w(k)) &
                 )**0.5)
         end do
+            Kz_w(i_water,k_wat_bbl,iday)=Kz_w(i_water,k_wat_bbl-1,iday)
     end do
 !!!---------------------------------------------------------------------------------------------------------------------
 
@@ -1055,7 +1050,7 @@
 
 
     !!Write to output file
-    open(12,FILE='Hydrophysics3.dat')
+    open(12,FILE='Hydrophysics.dat')
     write(12,'(6hiday  ,5hk    ,5hi    ,11hhz[m]      ,11hz[m]       ,11hz_H[m]     ,9ht[degC]  ,10hs[psu]    ,16hKz_H[m2/s]      ,18hKz_mol1_H[m2/s]   , 18hKz_bio_H[m2/s]    ,15halpha[/s]      ,5hphi  ,14htortuosity_H  ,15hhmix_rate[/d]  ,17hw_bH [1E-10 m/s]  ,17hu_bH [1E-10 m/s]  )')
         do iday=1,days_in_yr
             do k=1,k_max
