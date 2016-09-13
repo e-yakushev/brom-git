@@ -4,8 +4,8 @@ instances:
   brom:
     initialization:
 ##---Paramters for grid-------(see io_ascii.f90/make_vert_grid for a grid diagram)-----------------
-      water_layer_thickness: 5.9  # Thickness of the water column [m] (may overriden by netCDF input, see below) 
-      k_wat_bbl: 11               # Number of levels above the water/BBL boundary  (may be overriden by netCDF input, see below)    
+      water_layer_thickness: 200  # Thickness of the water column [m] (may overriden by netCDF input, see below) 
+      k_wat_bbl: 100               # Number of levels above the water/BBL boundary  (may be overriden by netCDF input, see below)    
       bbl_thickness: 0.25          # Thickness of the high-resolution layer overlying the sediments (model "benthic boundary layer") [m] (default = 0.5 m)
                                   #   This should be thinner than the full viscous+logarithmic layer, but thicker than the viscous layer
                                   #   Typical thicknesses for full viscous+logarithmic layer are 1 m and 10 m for deep sea and shelf respectively (Wimbush 2012)
@@ -13,7 +13,7 @@ instances:
       hz_sed_min: 0.0005          # Minimum layer thickness in the sediments near the SWI [m] (default = 0.0005 m)
       hz_sed_max: 0.01            # Maximum layer thickness deeper in the sediments [m] (default = 0.01 m)
       k_min: 1                    # Minimum k number defining the layer that is in contact with the atmosphere (default = 1) 
-      k_points_below_water: 24    # Number of levels below the water/BBL boundary (default = 20)
+      k_points_below_water: 0     # Number of levels below the water/BBL boundary (default = 20)
       i_min: 1                    # Minimum i number (default = 1)
       i_water: 1                  # Number of i for water column (default = 1)       
       i_max: 1                    # Maximum i number  (default = 1)
@@ -68,6 +68,13 @@ instances:
       a3top_niva_brom_bio_NO3: 60.
       bctype_bottom_niva_brom_bio_NO3: 1
       bc_bottom_niva_brom_bio_NO3: 0.
+#
+      bctype_top_niva_oxydep_NUT: 2
+      a1top_niva_oxydep_NUT: 3. # 3
+      a2top_niva_oxydep_NUT: 3.
+      a3top_niva_oxydep_NUT: 320.
+#      bctype_bottom_niva_oxydep_DOM: 1
+#      bc_bottom_niva_oxydep_DOM: 1000.
 #
       bctype_top_niva_brom_bio_PO4: 2
       a1top_niva_brom_bio_PO4: 0.6
@@ -128,7 +135,7 @@ instances:
       lat_light: 50      # Latitude of modelled site [degrees north], e.g. Hardangerfjord station H6 is at 60.228N; Sleipner=50N; Saelen=60.33N
       Io: 80.            # Theoretical maximum 24-hr average surface downwelling shortwave irradiance in air [W/m2] (default = 80 W/m2)
                          #   This should include that effect of average cloud cover (local)
-      light_model: 1     # Specify light model: 0 for simple model based on ersem/light.f90
+      light_model: 0     # Specify light model: 0 for simple model based on ersem/light.f90
                          #                      1 for extended model accounting for other particulates in BROM
 #
 #
@@ -259,7 +266,7 @@ instances:
 #
 ##---I/O options-----------------------------------------------------------------------------------
       input_type: 1                              # input forcing type: 0 for sinusoidal changes, 1 to read from ascii, 2 to read from netCDF (default)
-      ncoutfile_name: BROM_Berre_out.nc          # netCDF output file name
+      ncoutfile_name: BROM_S_out.nc          # netCDF output file name
       sediments_units_convert: 1                 # 1(default) to convert concentrations from 'mass/total volume' into'mass/pore water ml' for dissolved and 'mass/mass' for solids 
       outfile_name: finish.dat                   # ascii output file name
       port_initial_state: 0                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)

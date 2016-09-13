@@ -272,7 +272,13 @@
     allocate(kztCFL(k_max-1,par_max))
     allocate(wCFL(k_max-1,par_max))
 
-
+    if (k_points_below_water==0) then  !This is to "unlock" BBL and sediments for a "classical" water column model
+        k_max=k_wat_bbl
+        z=z_w
+        dz=dz_w
+        hz=hz_w
+        k_bbl_sed=k_wat_bbl !needed for Irradiance calculations
+    else
     !Construct the full vertical grid
     call make_vert_grid(z, dz, hz, z_w, dz_w, hz_w, k_wat_bbl, k_max, k_bbl_sed)
     write(*,*) "Made vertical grid"
@@ -282,6 +288,7 @@
     k_wat = (/(k,k=1,k_bbl_sed)/)       !Index vector for all points in the water column
     k_sed = (/(k,k=k_bbl_sed+1,k_max)/) !Index vector for all points in the sediments
     k_sed1 = (/(k,k=k_bbl_sed+1,k_max+1)/) !Indices of layer interfaces in the sediments (including the SWI)
+    endif
 
     !Initialize tridiagonal matrix if necessary
     if (diff_method.gt.0) then
@@ -556,6 +563,8 @@
                     cc(i_water,:,ip) = max(cc0, cc(i_water,:,ip)) !Impose resilient concentration
                 end if
             end do
+
+            cc(1,20,7)=cc(1,20,7)+dt*1.
 
             !Check for NaNs (stopping if any found)
             do ip=1,par_max
