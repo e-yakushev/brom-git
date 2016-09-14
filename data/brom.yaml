@@ -118,6 +118,9 @@ instances:
       hmix_niva_brom_bio_PO4: 0
       hmix_niva_brom_redox_Si: 0
       hmix_niva_brom_bio_O2: 0
+      hmix_niva_oxydep_Oxy: 1
+      hmix_niva_oxydep_NUT: 1
+
 #
 #
 ##---Ice model parameters--------------------------------------------------------------------------

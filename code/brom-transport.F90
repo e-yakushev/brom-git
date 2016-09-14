@@ -200,7 +200,6 @@
         end if
     end do
 
-
     !Input forcing data
     if (input_type.eq.0) then !Input sinusoidal seasonal changes (hypothetical)
         call input_primitive_physics(z_w, dz_w, hz_w, k_wat_bbl, water_layer_thickness, t_w, s_w, kz_w, i_water, i_max, days_in_yr)
@@ -437,6 +436,23 @@
     model_year = 0
     kzti = 0.0_rk
 
+    !Read ascii data for horizontal mixing
+    hmix_rate=0.1
+    open(20, file='spa_no3.dat')
+    do k=1,k_wat_bbl
+        do i=1,days_in_yr
+            read(20, *) ip,ip,cc_hmix(1,3,k,i) ! NODC data on NO3 i_water,ip,:,julianday)
+        end do
+    end do
+    close(20)
+    open(20, file='spa_o2.dat')
+    do k=1,k_wat_bbl
+        do i=1,days_in_yr
+            read(20, *) ip,ip,cc_hmix(1,1,k,i) ! NODC data on NO3 i_water,ip,:,julianday)
+        end do
+    end do
+    close(20)
+
     !convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
     if (bc_units_convert.eq.1) then
         do ip=1,par_max
@@ -482,7 +498,6 @@
         if (use_hice.eq.1) then
             call fabm_link_horizontal_data(model, ice_thickness, hice(julianday:julianday))
         end if
-
 
         !Subloop over timesteps in the course of one day
         !Note: The numerical approach here is Operator Splitting with tracer transport processes assumed to be
@@ -564,7 +579,7 @@
                 end if
             end do
 
-            cc(1,20,7)=cc(1,20,7)+dt*1.
+            cc(1,20,7)=cc(1,20,7)+dt*1000.   !Source of "acetate"
 
             !Check for NaNs (stopping if any found)
             do ip=1,par_max

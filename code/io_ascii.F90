@@ -802,14 +802,14 @@
 
     !Read (T,S) data for Berre
     k_max_TEL= 100
-    open(19, file='sp_t.dat')
+    open(19, file='spa_t.dat')
     do j=1,k_max_TEL
         do i=1,days_in_yr
             read(19, *) k,k,tem_TEL(j,i) ! measured and interpolated data from TELEMARC model
         end do
     end do
     close(19)
-    open(20, file='sp_s.dat')
+    open(20, file='spa_s.dat')
     do j=1,k_max_TEL
         do i=1,days_in_yr
             read(20, *) k,k,sal_TEL(j,i) ! measured and interpolated data from TELEMARC model
