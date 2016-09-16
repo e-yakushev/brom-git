@@ -501,8 +501,9 @@
             if (nc_staggered_grid.eq.0) then
                 !If not staggered, linearly interpolate to layer interfaces
                 kz_w(i_water,1,i)           = 0.0_rk
-                kz_w(i_water,2:k_wat_bbl,i) = abs(kz_temp(inds(2:k_wat_bbl),istart+i-1) + 0.5_rk*hz_w(1:k_wat_bbl-1)*&
-                    (kz_temp(inds(2:k_wat_bbl),istart+i-1) - kz_temp(inds(1:k_wat_bbl-1),istart+i-1))/dz_w(1:k_wat_bbl-1))
+                kz_w(i_water,2:k_wat_bbl,i) = kz_temp(inds(2:k_wat_bbl),istart+i-1) 
+                !kz_w(i_water,2:k_wat_bbl,i) = abs(kz_temp(inds(2:k_wat_bbl),istart+i-1) + 0.5_rk*hz_w(1:k_wat_bbl-1)*&
+                !    (kz_temp(inds(2:k_wat_bbl),istart+i-1) - kz_temp(inds(1:k_wat_bbl-1),istart+i-1))/dz_w(1:k_wat_bbl-1))
                 kz_w(i_water,k_wat_bbl+1,i) = 0.0_rk
             end if
             if (nc_staggered_grid.eq.1) then
