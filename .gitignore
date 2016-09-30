@@ -4,4 +4,8 @@ data/Hydrophysics3.dat
 data/Vertical_grid.dat
 data/finish.dat
 data/output*.dat
+Hydrophysics.dat
+out/
+spa_no3.dat
+spa_o2.dat
 *~

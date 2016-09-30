@@ -83,18 +83,23 @@ instances:
 #      bctype_bottom_niva_brom_redox_Si: 1
 #      bc_bottom_niva_brom_redox_Si: 100.
 #
+#Here we convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
+#     0 not to convert 
+#     1 to convert 
+      bc_units_convert: 1
 #
 ##---Horizontal mixing parameters------------------------------------------------------------------
 #
 #Here we specify horizontal mixing model using hmix_<variable name>
 #     0 to assume no horizontal mixing (default, does not need to be explicitly set)
 #     1 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by netCDF input file and hmix_rate specified here
+#     2 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by ASCII input file and hmix_rate specified here     
 #
-      hmix_niva_brom_bio_NO3: 0
+      hmix_niva_brom_bio_NO3: 2
       hmix_niva_brom_bio_NH4: 0
       hmix_niva_brom_bio_PO4: 0
       hmix_niva_brom_redox_Si: 0
-      hmix_niva_brom_bio_O2: 0
+      hmix_niva_brom_bio_O2: 2
 #
 #
 ##---Ice model parameters--------------------------------------------------------------------------
@@ -162,7 +167,7 @@ instances:
       dt:          0.0025      # Time step in [days] (default = 0.0025 days)
       freq_turb:   1           # Physical mixing time step = dt/freq_turb (default = 1)
       freq_sed:    1           # Sinking / bhc frequency (default = 1)
-      year:        1990        # Selected year (for reading netCDF inputs)
+      year:        2003        # Selected year (for reading netCDF inputs)
       days_in_yr:  365         # Number of days in repeated period (typically 365 or 366, default = 365)
       last_day:    3650        # Last day in simulation (~ days_in_yr * no. repeated years, default = 365)
       cc0:         1.0E-11     # Resilient (minimum) concentration for all variables [mmol/m3] (default = 1.0E-11 mmol/m3)
@@ -244,6 +249,7 @@ instances:
 ##---I/O options-----------------------------------------------------------------------------------
       input_type: 2                              # input forcing type: 0 for sinusoidal changes, 1 to read from ascii, 2 to read from netCDF (default)
       ncoutfile_name: BROM_out.nc     # netCDF output file name
+      sediments_units_convert: 1                 # 1(default) to convert concentrations from 'mass/total volume' into'mass/pore water ml' for dissolved and 'mass/mass' for solids
       outfile_name: finish.dat                   # ascii output file name
       port_initial_state: 0                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
       icfile_name: start.dat                     # ascii initial condition file name (needed if port_initial_state = 1)
@@ -257,7 +263,7 @@ instances:
       nc_z_increasing_upward: 1                  # 1 if netCDF depth variables are increasing upward (e.g. if "depth" is negative) (default = 0)
       ncinfile_name: B3zax-kz.nc                 # netCDF input file name
       ncintime_name: time                        # netCDF time dimension name [units since nc_year0-01-01 00:00:00]
-      nc_year0: 1990                             # reference year for netCDF time variable (default = 1970)
+      nc_year0: 2003                           # reference year for netCDF time variable (default = 1970)
       ncinz_name: zax                            # netCDF depth dimension name for layer midpoints (rho points) [m]
       ncinz2_name: zax                           # netCDF depth dimension name for layer interfaces (w points) [m]
       ncinlat_name: latc                         # netCDF latitude dimension name (needed if reading 4D variables)

@@ -737,17 +737,19 @@
     allocate(kz_w(i_max,k_wat_bbl,days_in_yr))
 
 !!! HERE THE USER MUST ADAPT FOR HIS/HER PARTICULAR APPLICATION --------------------------------------------------------
+    goto 2
+!
+1   continue ! CASE BERRE:
 !
 ! The code below is provided as an example, reading (T,S) data from an ascii file of interpolated output from a model
 ! (TELEMARC) and using the resulting seawater density to compute Kz for a particular application (Berre)
 !____________________________________________________________________
 !   TELEMARK produced file
 !____________________________________________________________________
-
     !Make grid parameters assuming uniform grid defined by water_layer_thickness and k_wat_bbl in brom.yaml
-    dz_w = water_layer_thickness/k_wat_bbl
-    hz_w = dz_w
-    z_w(1) = 0.0_rk
+    hz_w = water_layer_thickness/k_wat_bbl
+    dz_w = hz_w
+    z_w(1) = 0.5_rk*hz_w(1)
     do k=2,k_wat_bbl
         z_w(k) = z_w(k-1) + dz_w(k-1)
     end do
@@ -786,8 +788,61 @@
                 *(abs(dens(k+1)-dens(k))/dz_w(k)) &
                 )**0.5)
         end do
+            Kz_w(i_water,k_wat_bbl,iday)=Kz_w(i_water,k_wat_bbl-1,iday)
     end do
-!!!---------------------------------------------------------------------------------------------------------------------
+!---end  CASE BERRE-----------------------------------------------------------------------------------------------------
+2 continue ! CASE SPANGEREID:
+!
+! The code below is provided as an example, reading (T,S) data from an ascii file of interpolated output from NODC 
+! from the North Sea and using the resulting seawater density to compute Kz for a particular application (Spangereid)
+!____________________________________________________________________
+!   TELEMARK produced file
+!____________________________________________________________________
+    !Make grid parameters assuming uniform grid defined by water_layer_thickness and k_wat_bbl in brom.yaml
+    hz_w = water_layer_thickness/k_wat_bbl
+    dz_w = hz_w
+    z_w(1) = 0.5_rk*hz_w(1)
+    do k=2,k_wat_bbl
+        z_w(k) = z_w(k-1) + dz_w(k-1)
+    end do
+
+    !Read (T,S) data for Berre
+    k_max_TEL= 100
+    open(19, file='spa_t.dat')
+    do j=1,k_max_TEL
+        do i=1,days_in_yr
+            read(19, *) k,k,tem_TEL(j,i) ! measured and interpolated data from TELEMARC model
+        end do
+    end do
+    close(19)
+    open(20, file='spa_s.dat')
+    do j=1,k_max_TEL
+        do i=1,days_in_yr
+            read(20, *) k,k,sal_TEL(j,i) ! measured and interpolated data from TELEMARC model
+        end do
+    end do
+    close(20)
+    do iday=1,days_in_yr
+        do k=1,k_wat_bbl
+            s_w(i_water,k,iday) = sal_TEL(k,iday)
+            t_w(i_water,k,iday) = tem_TEL(k,iday)
+        enddo
+    enddo
+
+    !Calculate  vertical turbulent coefficient Kz from density (Gargett)
+    do iday=1,days_in_yr
+        do k=1, k_wat_bbl
+            call svan(s_w(i_water,k,iday),t_w(i_water,k,iday),z_w(k),dens(k)) !calculate density as f(p,t,s)
+        end do
+        do k=1, k_wat_bbl-1
+            Kz_w(i_water,k,iday)=0.5E-4 /&
+                ((9.81/(1000.+(dens(k)+dens(k+1))/2.)&
+                *(abs(dens(k+1)-dens(k))/dz_w(k)) &
+                )**0.4)
+        end do
+            Kz_w(i_water,k_wat_bbl,iday)=Kz_w(i_water,k_wat_bbl-1,iday)
+    end do
+!---end  CASE SPANGEREID--------------------------------------------------------------------------------------------------
 
     end subroutine input_ascii_physics
 !=======================================================================================================================
@@ -1057,7 +1112,7 @@
 
 
     !!Write to output file
-    open(12,FILE='Hydrophysics3.dat')
+    open(12,FILE='Hydrophysics.dat')
     write(12,'(6hiday  ,5hk    ,5hi    ,11hhz[m]      ,11hz[m]       ,11hz_H[m]     ,9ht[degC]  ,10hs[psu]    ,16hKz_H[m2/s]      ,18hKz_mol1_H[m2/s]   , 18hKz_bio_H[m2/s]    ,15halpha[/s]      ,5hphi  ,14htortuosity_H  ,15hhmix_rate[/d]  ,17hw_bH [1E-10 m/s]  ,17hu_bH [1E-10 m/s]  )')
         do iday=1,days_in_yr
             do k=1,k_max

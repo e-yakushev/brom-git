@@ -211,9 +211,9 @@
     do ip=1,par_max
         if (bctype_top(i_water,ip).eq.3) call check_err(nf90_inq_varid(ncid, trim(ncinsurfpar_name(ip)), surf_varid(ip)))
         if (bctype_bottom(i_water,ip).eq.3) call check_err(nf90_inq_varid(ncid, trim(ncinbotpar_name(ip)), bot_varid(ip)))
-        if (hmixtype(i_water,ip).gt.0) call check_err(nf90_inq_varid(ncid, trim(ncinhmixpar_name(ip)), hmix_varid(ip)))
+        if (hmixtype(i_water,ip).eq.1) call check_err(nf90_inq_varid(ncid, trim(ncinhmixpar_name(ip)), hmix_varid(ip)))
     end do
-    if (maxval(hmixtype(i_water,:)).gt.0) call check_err(nf90_inq_varid(ncid, trim(ncinhmix_rate_name), hmix_rate_varid))
+    if (maxval(hmixtype(i_water,:)).eq.1) call check_err(nf90_inq_varid(ncid, trim(ncinhmix_rate_name), hmix_rate_varid))
 
 
 
@@ -544,11 +544,11 @@
 
     !Horizontal mixing inputs
     hmix_rate_w = 0.0_rk
-    if (maxval(hmixtype(i_water,:)).gt.0) then
+    if (maxval(hmixtype(i_water,:)).eq.1) then
         do ip=1,par_max
             !Here the horizontal mixing variables are read in where necessary
             !Note: horizontal mixing variables MUST have dimensions (h_rec,days_in_yr), with depth indexing in agreement with (t,s) inputs
-            if (hmixtype(i_water,ip).gt.0) then
+            if (hmixtype(i_water,ip).eq.1) then
                 call check_err(nf90_get_var(ncid, hmix_varid(ip), cc_temp2))
                 cc_hmix_w(i_water,ip,1:k_wat_bbl,1:days_in_yr) = ncinhmixpar_fac(ip) * cc_temp2(inds,1:days_in_yr)
             end if
