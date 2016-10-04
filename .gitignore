@@ -1,5 +1,6 @@
 build/
 data/BROM_out.nc
+*.nc
 data/Hydrophysics3.dat
 data/Vertical_grid.dat
 data/finish.dat
