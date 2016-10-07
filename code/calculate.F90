@@ -71,7 +71,7 @@
 
 
     !Get light model parameters
-    if (light_model.eq.0) then
+
         !Simple model based on ersem/light.f90, with some important differences in interpretation:
         !   The model here uses Eair_to_PAR0 to convert 24-hr average downwelling surface shortwave irradiance in air
         !   to 24-hr average scalar PAR in water, while the ersem model uses pEIR_eow as a final factor to convert
@@ -85,7 +85,7 @@
         ESS = get_brom_par("ESS")
         kPhy = get_brom_par("kPhy")
         kPON = get_brom_par("kPON")
-    end if
+
     if (light_model.eq.1) then
         kHet = get_brom_par("kHet")
         kDON = get_brom_par("kDON")
@@ -108,9 +108,6 @@
     Izt(i_water,:) = 0.0_rk
     buffer = Iot                    !24-hr average downwelling shortwave irradiance in air <E_d>_24(air) [W/m2]
     buffer = buffer*Eair_to_PAR0    !Factor to convert <E_d>_24(air) to scalar 24-hr average PAR in water <PAR_o>_24(0)
-                                    !Radiative transfer models suggest an average value ~ 0.5 but with ~10% variability
-                                    !at mid/high latitudes depending on season, latitude, and wind speed,
-                                    !see Mobley and Boss (2012), Applied Optics 51(27), 6549-6560: Figs. 5b, 8b.
     buffer = buffer*max(0.0_rk, (1.0_rk-hice(julianday)/0.6_rk)) !Attenuation due to ice (soon to be replaced by ice module)
 
     if (buffer.gt.0.0_rk) then
