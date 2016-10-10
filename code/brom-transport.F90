@@ -192,7 +192,11 @@
 
 
     !Get horizontal mixing parameters from brom.yaml:
+<<<<<<< HEAD
     !hmixtype = 0, 1 or 2  for no horizontal mixing (default), box model mixing respectively
+=======
+    !!hmixtype = 0, 1 or 2  for no horizontal mixing (default), box model mixing respectively
+>>>>>>> 96551fa... read horizonal data nodc brom-transport.f90
     do ip=1,par_max
         hmixtype(i_water,ip) = get_brom_par('hmix_' // trim(par_name(ip)),0.0_rk)
         if (hmixtype(i_water,ip).eq.1) then
@@ -200,7 +204,11 @@
         end if
         if (hmixtype(i_water,ip).eq.2) then
             write(*,*) "Box-model horizontal mixing (ASCII) assumed for " // trim(par_name(ip))
+<<<<<<< HEAD
         end if
+=======
+        end if        
+>>>>>>> 96551fa... read horizonal data nodc brom-transport.f90
     end do
 
 
@@ -275,6 +283,10 @@
     allocate(kztCFL(k_max-1,par_max))
     allocate(wCFL(k_max-1,par_max))
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 96551fa... read horizonal data nodc brom-transport.f90
     if (k_points_below_water==0) then  !This is to "unlock" BBL and sediments for a "classical" water column model
         k_max=k_wat_bbl
         z=z_w
@@ -441,7 +453,11 @@
     kzti = 0.0_rk
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> 96551fa... read horizonal data nodc brom-transport.f90
     !Read ascii data for horizontal mixing
     hmix_rate=0.1    ! EYA
 !    if (hmix_niva_brom_bio_NO3.eq.2) then
@@ -464,7 +480,11 @@
         close(20)
  !   enddo
 
+<<<<<<< HEAD
 >>>>>>> f66e39ad954e510d77083f7b80d7699308f0c0df
+=======
+
+>>>>>>> 96551fa... read horizonal data nodc brom-transport.f90
     !convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
     if (bc_units_convert.eq.1) then
         do ip=1,par_max
