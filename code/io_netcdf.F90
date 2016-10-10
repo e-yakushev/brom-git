@@ -181,8 +181,8 @@
     end if
     idim_z = minloc(dimids1,1,mask=dimids1.eq.z_varid)
     idim_time = minloc(dimids1,1,mask=dimids1.eq.time_varid)
-    call check_err(nf90_inquire_dimension(ncid, dimids1(idim_z), len = h_rec))
-    call check_err(nf90_inquire_dimension(ncid, dimids1(idim_time), len = time_rec))
+    call check_err(nf90_inquire_dimension(ncid, dimids1(3), len = h_rec))
+    call check_err(nf90_inquire_dimension(ncid, dimids1(4), len = time_rec))
     !use diffusivity variable to get length of second input depth variable (possibly same as first)
     call check_err(nf90_inquire_variable(ncid, kz_varid, dimids = dimids2))
     idim_z2 = minloc(dimids2,1,mask=dimids2.eq.z2_varid)
@@ -192,8 +192,8 @@
     if (ndims.eq.4) then
         idim_lat = minloc(dimids1,1,mask=dimids1.eq.lat_varid)
         idim_lon = minloc(dimids1,1,mask=dimids1.eq.lon_varid)
-        call check_err(nf90_inquire_dimension(ncid, dimids1(idim_lat), len = lat_rec))
-        call check_err(nf90_inquire_dimension(ncid, dimids1(idim_lon), len = lon_rec))
+        call check_err(nf90_inquire_dimension(ncid, dimids1(1), len = lat_rec))
+        call check_err(nf90_inquire_dimension(ncid, dimids1(2), len = lon_rec))
         ll_rec(idim_lat) = lat_rec
         ll_rec(idim_lon) = lon_rec
         if (lat_rec.gt.1) then
@@ -211,9 +211,9 @@
     do ip=1,par_max
         if (bctype_top(i_water,ip).eq.3) call check_err(nf90_inq_varid(ncid, trim(ncinsurfpar_name(ip)), surf_varid(ip)))
         if (bctype_bottom(i_water,ip).eq.3) call check_err(nf90_inq_varid(ncid, trim(ncinbotpar_name(ip)), bot_varid(ip)))
-        if (hmixtype(i_water,ip).gt.0) call check_err(nf90_inq_varid(ncid, trim(ncinhmixpar_name(ip)), hmix_varid(ip)))
+        if (hmixtype(i_water,ip).eq.1) call check_err(nf90_inq_varid(ncid, trim(ncinhmixpar_name(ip)), hmix_varid(ip)))
     end do
-    if (maxval(hmixtype(i_water,:)).gt.0) call check_err(nf90_inq_varid(ncid, trim(ncinhmix_rate_name), hmix_rate_varid))
+    if (maxval(hmixtype(i_water,:)).eq.1) call check_err(nf90_inq_varid(ncid, trim(ncinhmix_rate_name), hmix_rate_varid))
 
 
 
@@ -237,7 +237,8 @@
     if (ndims.eq.4) then
         allocate(t_temp2(ll_rec(1),ll_rec(2),h_rec,time_rec))
         allocate(s_temp2(ll_rec(1),ll_rec(2),h_rec,time_rec))
-        allocate(kz_temp2(ll_rec(1),ll_rec(2),h_rec2,time_rec))
+        !allocate(kz_temp2(ll_rec(1),ll_rec(2),h_rec2,time_rec))
+        allocate(kz_temp(h_rec2,time_rec))
         if (use_Eair.eq.1) allocate(Eair_temp2(ll_rec(1),ll_rec(2),time_rec))
         if (use_hice.eq.1) allocate(hice_temp2(ll_rec(1),ll_rec(2),time_rec))
     end if
@@ -282,8 +283,8 @@
     if (ndims.eq.4) then
         call check_err(nf90_get_var(ncid, t_varid, t_temp2))
         call check_err(nf90_get_var(ncid, s_varid, s_temp2))
-        call check_err(nf90_get_var(ncid, kz_varid, kz_temp2))
-        kz_temp2 = ncinkz_fac * kz_temp2
+        call check_err(nf90_get_var(ncid, kz_varid, kz_temp))
+        kz_temp = ncinkz_fac * kz_temp
         if (use_Eair.eq.1) then
             call check_err(nf90_get_var(ncid, Eair_varid, Eair_temp2))
             Eair_temp2 = ncinEair_fac * Eair_temp2
@@ -492,7 +493,7 @@
         hice = 0.0_rk !Default in case not read from hice_temp (use_hice = 0)
         if (use_hice.eq.1) hice(1:days_in_yr) = hice_temp(istart:istart+days_in_yr-1)
     end if
-
+    !istart = istart + 2
     if (ndims.eq.4) then  !Assuming netcdf input dimensions (lat/lon,lat/lon,depth,time) for variables (t,s,kz)
         do i=1,days_in_yr !Loop over days_in_yr
             t_w(i_water,1:k_wat_bbl,i) = t_temp2(ll_sel(1),ll_sel(2),inds,istart+i-1)
@@ -500,9 +501,9 @@
             if (nc_staggered_grid.eq.0) then
                 !If not staggered, linearly interpolate to layer interfaces
                 kz_w(i_water,1,i)           = 0.0_rk
-                kz_w(i_water,2:k_wat_bbl,i) = kz_temp2(ll_sel(1),ll_sel(2),inds(2:k_wat_bbl),istart+i-1) + 0.5_rk*hz_w(1:k_wat_bbl-1)*&
-                    (kz_temp2(ll_sel(1),ll_sel(2),inds(2:k_wat_bbl),istart+i-1) - &
-                    kz_temp2(ll_sel(1),ll_sel(2),inds(1:k_wat_bbl-1),istart+i-1))/dz_w(1:k_wat_bbl-1)
+                kz_w(i_water,2:k_wat_bbl,i) = kz_temp(inds(2:k_wat_bbl),istart+i-1) 
+                !kz_w(i_water,2:k_wat_bbl,i) = abs(kz_temp(inds(2:k_wat_bbl),istart+i-1) + 0.5_rk*hz_w(1:k_wat_bbl-1)*&
+                !    (kz_temp(inds(2:k_wat_bbl),istart+i-1) - kz_temp(inds(1:k_wat_bbl-1),istart+i-1))/dz_w(1:k_wat_bbl-1))
                 kz_w(i_water,k_wat_bbl+1,i) = 0.0_rk
             end if
             if (nc_staggered_grid.eq.1) then
@@ -543,11 +544,11 @@
 
     !Horizontal mixing inputs
     hmix_rate_w = 0.0_rk
-    if (maxval(hmixtype(i_water,:)).gt.0) then
+    if (maxval(hmixtype(i_water,:)).eq.1) then
         do ip=1,par_max
             !Here the horizontal mixing variables are read in where necessary
             !Note: horizontal mixing variables MUST have dimensions (h_rec,days_in_yr), with depth indexing in agreement with (t,s) inputs
-            if (hmixtype(i_water,ip).gt.0) then
+            if (hmixtype(i_water,ip).eq.1) then
                 call check_err(nf90_get_var(ncid, hmix_varid(ip), cc_temp2))
                 cc_hmix_w(i_water,ip,1:k_wat_bbl,1:days_in_yr) = ncinhmixpar_fac(ip) * cc_temp2(inds,1:days_in_yr)
             end if
@@ -569,7 +570,7 @@
     if (ndims.eq.4) then
         deallocate(t_temp2)
         deallocate(s_temp2)
-        deallocate(kz_temp2)
+        deallocate(kz_temp)
         if (use_Eair.eq.1) deallocate(Eair_temp2)
         if (use_hice.eq.1) deallocate(hice_temp2)
     end if
