@@ -192,12 +192,15 @@
 
 
     !Get horizontal mixing parameters from brom.yaml:
-    !hmixtype = 0, 1 for no horizontal mixing (default), box model mixing respectively
+    !!hmixtype = 0, 1 or 2  for no horizontal mixing (default), box model mixing respectively
     do ip=1,par_max
         hmixtype(i_water,ip) = get_brom_par('hmix_' // trim(par_name(ip)),0.0_rk)
         if (hmixtype(i_water,ip).eq.1) then
             write(*,*) "Box-model horizontal mixing assumed for " // trim(par_name(ip))
         end if
+        if (hmixtype(i_water,ip).eq.2) then
+            write(*,*) "Box-model horizontal mixing (ASCII) assumed for " // trim(par_name(ip))
+        end if        
     end do
 
 
@@ -268,15 +271,23 @@
     allocate(wCFL(k_max-1,par_max))
 
 
-    !Construct the full vertical grid
-    call make_vert_grid(z, dz, hz, z_w, dz_w, hz_w, k_wat_bbl, k_max, k_bbl_sed)
-    write(*,*) "Made vertical grid"
-    allocate(k_wat(k_bbl_sed))
-    allocate(k_sed(k_max-k_bbl_sed))
-    allocate(k_sed1(k_max+1-k_bbl_sed))
-    k_wat = (/(k,k=1,k_bbl_sed)/)       !Index vector for all points in the water column
-    k_sed = (/(k,k=k_bbl_sed+1,k_max)/) !Index vector for all points in the sediments
-    k_sed1 = (/(k,k=k_bbl_sed+1,k_max+1)/) !Indices of layer interfaces in the sediments (including the SWI)
+    if (k_points_below_water==0) then  !This is to "unlock" BBL and sediments for a "classical" water column model
+        k_max=k_wat_bbl
+        z=z_w
+        dz=dz_w
+        hz=hz_w
+        k_bbl_sed=k_wat_bbl !needed for Irradiance calculations
+    else
+        !Construct the full vertical grid
+        call make_vert_grid(z, dz, hz, z_w, dz_w, hz_w, k_wat_bbl, k_max, k_bbl_sed)
+        write(*,*) "Made vertical grid"
+        allocate(k_wat(k_bbl_sed))
+        allocate(k_sed(k_max-k_bbl_sed))
+        allocate(k_sed1(k_max+1-k_bbl_sed))
+        k_wat = (/(k,k=1,k_bbl_sed)/)       !Index vector for all points in the water column
+        k_sed = (/(k,k=k_bbl_sed+1,k_max)/) !Index vector for all points in the sediments
+        k_sed1 = (/(k,k=k_bbl_sed+1,k_max+1)/) !Indices of layer interfaces in the sediments (including the SWI)
+    endif
 
     !Initialize tridiagonal matrix if necessary
     if (diff_method.gt.0) then
@@ -422,6 +433,39 @@
     model_year = 0
     kzti = 0.0_rk
 
+<<<<<<< HEAD
+=======
+
+    !Read ascii data for horizontal mixing
+    hmix_rate=0.1    ! EYA
+!    if (hmix_niva_brom_bio_NO3.eq.2) then
+        open(20, file='spa_no3.dat')
+        do k=1,k_wat_bbl
+            do i=1,days_in_yr
+                read(20, *) ip,ip,cc_hmix(1,id_NO3,k,i) ! NODC data on NO3 i_water,ip,:,julianday)
+            end do
+        end do
+        close(20)
+!    endif
+    
+!    if (hmix_niva_brom_bio_O2.eq.2) then    
+        open(20, file='spa_o2.dat')
+        do k=1,k_wat_bbl
+            do i=1,days_in_yr
+                read(20, *) ip,ip,cc_hmix(1,id_O2,k,i) ! NODC data on NO3 i_water,ip,:,julianday)
+            end do
+        end do
+        close(20)
+ !   enddo
+
+
+    !convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
+    if (bc_units_convert.eq.1) then
+        do ip=1,par_max
+            if (bctype_bottom(i_water,ip).eq.1) bc_bottom(i_water,ip) = bc_bottom(i_water,ip)/pF1(i_water,k_max,ip)
+        enddo
+    endif
+>>>>>>> 96551fa... read horizonal data nodc brom-transport.f90
 
     !Master time step loop over days
     write(*,*) "Starting time stepping"
