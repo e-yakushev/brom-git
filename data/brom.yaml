@@ -4,16 +4,16 @@ instances:
   brom:
     initialization:
 ##---Paramters for grid-------(see io_ascii.f90/make_vert_grid for a grid diagram)-----------------
-      water_layer_thickness: 95.  # Thickness of the water column [m] (may overriden by netCDF input, see below) 
-      k_wat_bbl: 18               # Number of levels above the water/BBL boundary  (may be overriden by netCDF input, see below)    
-      bbl_thickness: 0.5          # Thickness of the high-resolution layer overlying the sediments (model "benthic boundary layer") [m] (default = 0.5 m)
+      water_layer_thickness: 5.9  # Thickness of the water column [m] (may overriden by netCDF input, see below) 
+      k_wat_bbl: 11               # Number of levels above the water/BBL boundary  (may be overriden by netCDF input, see below)    
+      bbl_thickness: 0.25          # Thickness of the high-resolution layer overlying the sediments (model "benthic boundary layer") [m] (default = 0.5 m)
                                   #   This should be thinner than the full viscous+logarithmic layer, but thicker than the viscous layer
                                   #   Typical thicknesses for full viscous+logarithmic layer are 1 m and 10 m for deep sea and shelf respectively (Wimbush 2012)
-      hz_bbl_min: 0.02            # Minimum allowed layer thickness in the BBL near the SWI [m] (default = 0.02 m)
+      hz_bbl_min: 0.015            # Minimum allowed layer thickness in the BBL near the SWI [m] (default = 0.02 m)
       hz_sed_min: 0.0005          # Minimum layer thickness in the sediments near the SWI [m] (default = 0.0005 m)
       hz_sed_max: 0.01            # Maximum layer thickness deeper in the sediments [m] (default = 0.01 m)
       k_min: 1                    # Minimum k number defining the layer that is in contact with the atmosphere (default = 1) 
-      k_points_below_water: 17    # Number of levels below the water/BBL boundary (default = 20)
+      k_points_below_water: 24    # Number of levels below the water/BBL boundary (default = 20)
       i_min: 1                    # Minimum i number (default = 1)
       i_water: 1                  # Number of i for water column (default = 1)       
       i_max: 1                    # Maximum i number  (default = 1)
@@ -37,52 +37,68 @@ instances:
 #            a3top_niva_brom_bio_NO3: 60.
 #     3 for arbitrary Dirichlet, read from netCDF file (see I/O options to specify netCDF variable names)
 #
-#      bctype_bottom_niva_brom_bio_O2: 1
-#      bc_bottom_niva_brom_bio_O2: 0.
+      bctype_bottom_niva_brom_bio_O2: 1
+      bc_bottom_niva_brom_bio_O2: 0.
 #
-      bctype_top_niva_brom_redox_SO4: 1
-      bc_top_niva_brom_redox_SO4: 25000.
+      bctype_top_niva_brom_redox_SO4: 4
+      bc_top_niva_brom_redox_SO4: 22000.
       bctype_bottom_niva_brom_redox_SO4: 1
-      bc_bottom_niva_brom_redox_SO4: 25000.
+      bc_bottom_niva_brom_redox_SO4: 9000.
 #
       bctype_top_niva_brom_redox_Mn4: 1
-      bc_top_niva_brom_redox_Mn4: 20.E-4
+      bc_top_niva_brom_redox_Mn4: 10.E-4
 #
       bctype_top_niva_brom_redox_Fe3: 1
-      bc_top_niva_brom_redox_Fe3: 5.E-4
+      bc_top_niva_brom_redox_Fe3: 1.E-4
 #
       bctype_top_niva_brom_carb_Alk: 1
-      bc_top_niva_brom_carb_Alk: 2200.
-#      bctype_bottom_niva_brom_carb_Alk: 1
-#      bc_bottom_niva_brom_carb_Alk: 3200.
+      bc_top_niva_brom_carb_Alk: 2300.
+      bctype_bottom_niva_brom_carb_Alk: 1
+      bc_bottom_niva_brom_carb_Alk: 11500.
 #
-#      bctype_bottom_niva_brom_carb_DIC: 1
-#      bc_bottom_niva_brom_carb_DIC: 2850.
+      bctype_bottom_niva_brom_carb_DIC: 1
+      bc_bottom_niva_brom_carb_DIC: 12000.
 #
-#      bctype_bottom_niva_brom_bio_NH4: 1
-#      bc_bottom_niva_brom_bio_NH4: 10.
+      bctype_bottom_niva_brom_bio_NH4: 1
+      bc_bottom_niva_brom_bio_NH4: 900.
 #
       bctype_top_niva_brom_bio_NO3: 2
-      a1top_niva_brom_bio_NO3: 1. # 3
-      a2top_niva_brom_bio_NO3: 1.
-      a3top_niva_brom_bio_NO3: 320.
+      a1top_niva_brom_bio_NO3: 3. # 3
+      a2top_niva_brom_bio_NO3: 3.
+      a3top_niva_brom_bio_NO3: 60.
       bctype_bottom_niva_brom_bio_NO3: 1
       bc_bottom_niva_brom_bio_NO3: 0.
 #
       bctype_top_niva_brom_bio_PO4: 2
-      a1top_niva_brom_bio_PO4: 0.7 #0.8
-      a2top_niva_brom_bio_PO4: 0.7
-      a3top_niva_brom_bio_PO4: 320. #60.
-#      bctype_bottom_niva_brom_bio_PO4: 1
-#      bc_bottom_niva_brom_bio_PO4: 10.
+      a1top_niva_brom_bio_PO4: 0.6
+      a2top_niva_brom_bio_PO4: 0.6
+      a3top_niva_brom_bio_PO4: 60. #60.
+      bctype_bottom_niva_brom_bio_PO4: 1
+      bc_bottom_niva_brom_bio_PO4: 60.
 #
       bctype_top_niva_brom_redox_Si: 2
-      a1top_niva_brom_redox_Si: 1.5
-      a2top_niva_brom_redox_Si: 1.5
-      a3top_niva_brom_redox_Si: 320.
-#      bctype_bottom_niva_brom_redox_Si: 1
-#      bc_bottom_niva_brom_redox_Si: 100.
+      a1top_niva_brom_redox_Si: 1.3
+      a2top_niva_brom_redox_Si: 1.3
+      a3top_niva_brom_redox_Si: 60.
+      bctype_bottom_niva_brom_redox_Si: 1
+      bc_bottom_niva_brom_redox_Si: 3800.
 #
+      bctype_bottom_niva_brom_redox_H2S: 1
+      bc_bottom_niva_brom_redox_H2S: 1000.
+#
+      bctype_bottom_niva_brom_redox_MnCO3: 1
+      bc_bottom_niva_brom_redox_MnCO3: 10.
+#
+      bctype_bottom_niva_brom_redox_FeCO3: 1
+      bc_bottom_niva_brom_redox_FeCO3: 20.
+#
+      bctype_bottom_niva_brom_redox_FeS2: 1
+      bc_bottom_niva_brom_redox_FeS2: 10.
+#
+#Here we convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
+#     0 not to convert 
+#     1 to convert 
+      bc_units_convert: 1
 #
 ##---Horizontal mixing parameters------------------------------------------------------------------
 #
@@ -103,7 +119,7 @@ instances:
 #
 ##---Constant forcings-----------------------------------------------------------------------------
       density: 1000.
-      wind_speed: 8.     # Wind speed 10 m above sea surface [m/s] (default = 8 m/s) 
+      wind_speed: 5.     # Wind speed 10 m above sea surface [m/s] (default = 8 m/s) 
       pco2_atm: 380.     # Atmospheric partial pressure of CO2 [ppm] (default = 380 ppm)
 #
 #
@@ -112,7 +128,7 @@ instances:
       lat_light: 50      # Latitude of modelled site [degrees north], e.g. Hardangerfjord station H6 is at 60.228N; Sleipner=50N; Saelen=60.33N
       Io: 80.            # Theoretical maximum 24-hr average surface downwelling shortwave irradiance in air [W/m2] (default = 80 W/m2)
                          #   This should include that effect of average cloud cover (local)
-      light_model: 0     # Specify light model: 0 for simple model based on ersem/light.f90
+      light_model: 1     # Specify light model: 0 for simple model based on ersem/light.f90
                          #                      1 for extended model accounting for other particulates in BROM
 #
 #
@@ -123,15 +139,15 @@ instances:
       k0r:  0.04         # Background PAR attenuation [m-1] (default = 0.04 m-1, from ERSEM shortwave attenuation default)
       kESS: 4e-05        # Specific PAR attenuation by silt [m^2/mg] (default = 4e-05 m^2/mg, from ERSEM shortwave attenuation default)
       ESS:  0.           # Assumed (constant) concentration of silt [mg/m^3] (default = 0. mg/m^3, from ERSEM shortwave attenuation default)
-      kPhy: 0.00023      # Specific PAR attenuation by phytoplankton [m^2/mg N] (default = 0.0023 m^2/mg N, from ERSEM shortwave attenuation default)
+      kPhy: 0.003        # Specific PAR attenuation by phytoplankton [m^2/mg N] (default = 0.0023 m^2/mg N, from ERSEM shortwave attenuation default)
                          #   From ERSEM Blackford (P1-P4), default = 0.0004 m^2/mg C * 5.68 mg C/mg N (Redfield ratio 106/16 mol/mol)
                          #   Note misprint "e-3" instead of "e-4" in Blackford et al. (2004) Table 1
-      kPON: 0.           # Specific PAR attenuation due to PON [m^2/mg N] (default = 0. m^2/mg N)
+      kPON: 0.05         # Specific PAR attenuation due to PON [m^2/mg N] (default = 0. m^2/mg N)
 # The following are only used if light_model = 1
-      kHet: 0.           # Specific PAR attenuation due to zooplankton [m^2/mg N] (default = 0. m^2/mg N)
-      kDON: 0.           # Specific PAR attenuation due to DON [m^2/mg N] (default = 0. m^2/mg N)
-      kB:   0.           # Specific PAR attenuation due to bacteria [m^2/mg N] (default = 0. m^2/mg N)
-      kPIV: 0.           # Specific PAR attenuation due to total particulate inorganic volume fraction (default = 0. m^-1)
+      kHet: 0.05        # Specific PAR attenuation due to zooplankton [m^2/mg N] (default = 0. m^2/mg N)
+      kDON: 0.01        # Specific PAR attenuation due to DON [m^2/mg N] (default = 0. m^2/mg N)
+      kB:   0.03        # Specific PAR attenuation due to bacteria [m^2/mg N] (default = 0. m^2/mg N)
+      kPIV: 0.05        # Specific PAR attenuation due to total particulate inorganic volume fraction (default = 0. m^-1)
 #
 #
 ##---Assumed densities for particles in the model (may be used in light/sedimentation models)------
@@ -187,7 +203,7 @@ instances:
                                #   This is only used if assuming a static kz_bbl (dynamic_kz_bbl = 0)
       kz_bbl_max:      5.E-6   # Maximum eddy diffusivity in the benthic boundary layer [m2/s] (default = 1.0E-5 m2/s)
                                #   This is only used if assuming a static kz_bbl (dynamic_kz_bbl = 0)
-      dbl_thickness:   0.0005  # Thickness of the diffusive boundary layer [m] (default = 0.0005 m = 0.5 mm)
+      dbl_thickness:   0.0002  # Thickness of the diffusive boundary layer [m] (default = 0.0005 m = 0.5 mm)
                                #   Jorgensen and Revsbech (1985) quote a range 1-2 mm over the deep sea floor (Boudreau and Guinasso, 1982, Wimbush 1976)
                                #   and down to 0.1-0.2 mm over more exposed sediments (Santschi et al., 1983)
                                #   All layers within the DBL (midpoint height above SWI < dbl_thickness) have kz = kz_mol0 (no eddy diffusivity)
@@ -242,11 +258,12 @@ instances:
 #
 #
 ##---I/O options-----------------------------------------------------------------------------------
-      input_type: 2                              # input forcing type: 0 for sinusoidal changes, 1 to read from ascii, 2 to read from netCDF (default)
-      ncoutfile_name: BROM_out.nc     # netCDF output file name
+      input_type: 1                              # input forcing type: 0 for sinusoidal changes, 1 to read from ascii, 2 to read from netCDF (default)
+      ncoutfile_name: BROM_Berre_out.nc          # netCDF output file name
+      sediments_units_convert: 1                 # 1(default) to convert concentrations from 'mass/total volume' into'mass/pore water ml' for dissolved and 'mass/mass' for solids 
       outfile_name: finish.dat                   # ascii output file name
-      port_initial_state: 1                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
-      icfile_name: start.dat                   # ascii initial condition file name (needed if port_initial_state = 1)
+      port_initial_state: 0                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
+      icfile_name: start.dat                     # ascii initial condition file name (needed if port_initial_state = 1)
 #The following are only used if reading input from netCDF (input_type = 2)
 #Note: NetCDF variables (temperature, salinity, diffusivity) must have either two dimensions (depth, time) or four dimensions ((latitude, longitude, depth , time) or (longitude, latitude, depth, time))
       nc_set_k_wat_bbl: 1                        # 1 (default) to set the no. water column layers to agree with netCDF input

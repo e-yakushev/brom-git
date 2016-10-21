@@ -6,7 +6,7 @@ instances:
   niva_brom_carb:
     initialization:
       Alk: 2200.
-      DIC: 2100.
+      DIC: 2300.
     coupling:
       Kc0: niva_brom_eqconst/Kc0
       Kc1: niva_brom_eqconst/Kc1
@@ -48,24 +48,24 @@ instances:
       NH4: 0.0
     parameters:
 # ---- Phy  ----------
-      K_phy_gro: 4.7        # Maximum specific growth rate (1/d) =0.9-1.3 (Savchuk, 2002), =3.(Gregoire, Lacroix, 2001) >!0.5 worked for Berre!< 
+      K_phy_gro: 1.5        # Maximum specific growth rate (1/d) =0.9-1.3 (Savchuk, 2002), =3.(Gregoire, Lacroix, 2001) >!0.5 worked for Berre!< 
       Iopt: 25.             # Optimal irradiance (W/m2) =50 (Savchuk, 2002)
       bm: 0.12              # Coefficient for growth dependence on t
       cm: 1.4               # Coefficient for growth dependence on t
-      K_phy_mrt: 0.20       # Specific rate of mortality, (1/d) =0.3-0.6 (Savchuk, 2002), =0.05 (Gregoire, Lacroix, 2001)   
-      K_phy_exc: 0.10       # Specific rate of excretion, (1/d) =0.01 (Burchard et al., 2006)
+      K_phy_mrt: 0.15       # Specific rate of mortality, (1/d) =0.3-0.6 (Savchuk, 2002), =0.05 (Gregoire, Lacroix, 2001)   
+      K_phy_exc: 0.15       # Specific rate of excretion, (1/d) =0.01 (Burchard et al., 2006)
 # ----Het -----------
-      K_het_phy_gro: 1.1    #! Max.spec. rate of grazing of Zoo on Phy, (1/d), =0.9 (Gregoire, Lacroix, 2001), =1.5 (Burchard et al., 2006)    
-      K_het_phy_lim: 0.5    #! Half-sat.const.for grazing of Zoo on Phy for Phy/Zoo ratio
-      K_het_pom_gro: 0.50   #! Max.spec.rate of grazing of Zoo on POP and bacteria, (1/d), =1.2 (Burchard et al., 2006)
-      K_het_pom_lim: 0.05   #! Half-sat.const.for grazing of Zoo on POP for POP/Zoo  ratio
+      K_het_phy_gro: 1.0    #! Max.spec. rate of grazing of Zoo on Phy, (1/d), =0.9 (Gregoire, Lacroix, 2001), =1.5 (Burchard et al., 2006)    
+      K_het_phy_lim: 1.1    #! Half-sat.const.for grazing of Zoo on Phy for Phy/Zoo ratio
+      K_het_pom_gro: 0.70   #! Max.spec.rate of grazing of Zoo on POP and bacteria, (1/d), =1.2 (Burchard et al., 2006)
+      K_het_pom_lim: 0.2    #! Half-sat.const.for grazing of Zoo on POP for POP/Zoo  ratio
       K_het_res: 0.02       #! Specific respiration rate =0.02 (Yakushev et al., 2007)
       K_het_mrt: 0.05       #! %! Maximum specific rate of mortality of Zoo (1/d) =0.05 (Gregoire, Lacroix, 2001)  
       Uz: 0.5               #! Food absorbency for Zoo (nd) =0.5-0.7 (Savchuk, 2002)
       Hz: 0.5               #! Ratio betw. diss. and part. excretes of Zoo (nd), =0.5 (Gregoire, Lacroix, 2001)  
       limGrazBac:  2.       #! Limiting parameter for bacteria grazing by Zoo, =2. (Yakushev et al., 2007)
 # ----N -------------
-      K_nox_lim: 0.1        #! Half-sat.const.for uptake of NO3+NO2 (uM) =0.5 (Gregoire, Lacroix, 2001)
+      K_nox_lim: 0.12       #! Half-sat.const.for uptake of NO3+NO2 (uM) =0.5 (Gregoire, Lacroix, 2001)
       K_nh4_lim: 0.02       #! Half-sat.const.for uptake of NH4 (uM) =0.2 (Gregoire, Lacroix, 2001)
       K_psi: 1.46           #! Strength of NH4 inhibition of NO3 uptake constant (uM-1) =1.46_rk (Gregoire, Lacroix, 2001)
       K_nfix: 0.4           #! Maximum specific rate of N-fixation (1/d) =0.5 (Savchuk, 2002)
@@ -74,13 +74,13 @@ instances:
 # ----Si------------
       K_si_lim: 0.1         #! Half-sat. constant for uptake of Si_lim by Phy
 # ----Sinking-------
-      Wsed: 5.0        #! Rate of sinking of detritus (m/d), =0.4 (Savchuk, 2002), =5. (Gregoire, Lacroix, 2001), =1-370 (Alldredge, Gotschalk, 1988)
-      Wphy: 0.2        #! Rate of sinking of Phy (m/d), =0.1-0.5 (Savchuk, 2002)
-      Whet: 1.         #! Rate of sinking of Het (m/d), =1. (Yakushev et al., 2007)
+      Wsed: 1.0        #! Rate of sinking of detritus (m/d), =0.4 (Savchuk, 2002), =5. (Gregoire, Lacroix, 2001), =1-370 (Alldredge, Gotschalk, 1988)
+      Wphy: 0.05        #! Rate of sinking of Phy (m/d), =0.1-0.5 (Savchuk, 2002)
+      Whet: 0.05        #! Rate of sinking of Het (m/d), =1. (Yakushev et al., 2007)
 # ---- Stoichiometric coefficients ----
       r_n_p: 16.0      #! N[uM]/P[uM]
       r_o_n: 6.625     #! O2[uM]/N[uM]
-      r_c_n: 8.0       #! C[uM]/N[uM]  
+      r_c_n: 6.625     #! C[uM]/N[uM]  
       r_si_n: 1.0      #! Si[uM]/N[uM]   
     coupling:
       NO2: niva_brom_redox/NO2
@@ -122,12 +122,12 @@ instances:
       Bhae: 0.01 
       Baan: 0.01
       Bhan: 0.01
-      CaCO3: 5.0
+      CaCO3: 500.0
       CH4: 0.001      
       FeS2: 0.0
     parameters:
 # ---- Model parameters ------     
-      Wbact: 0.4         #! Rate of sinking of bacteria (Bhae,Baae,Bhan,Baan) (1/d), (Yakushev et al.,2007)
+      Wbact: 0.05        #! Rate of sinking of bacteria (Bhae,Baae,Bhan,Baan) (1/d), (Yakushev et al.,2007)
       Wm: 7.0           #! Rate of accelerated sinking of particles with settled metal hydroxides (1/d), (Yakushev et al.,2007)
 # specific rates of biogeochemical processes
 #---- Mn---------
@@ -149,9 +149,9 @@ instances:
       s_mnrd_mn4: 0.01     #! threshold of Mn4 reduciton (uM Mn) (Yakushev et al.,2007)
       s_mnrd_mn3: 0.01     #! threshold of Mn3 reduciton  (uM Mn) (Yakushev et al.,2007)
 #---- Fe---------
-      K_fe_ox1: 0.5          #!Specific rate of oxidation of Fe2 to Fe3  with O2 (1/d), =4. (Konovalov et al., 2006)
-      K_fe_ox2: 0.001        #!0.1! Specific rate of oxidation of Fe2 to Fe3  with MnO2 (1/d) =0.74 (Konovalov et al., 2006); 3x10^6 1/(M yr) is estimated in Van Cappellen-Wang-96 
-      K_fe_rd: 1.2           #!0.5! Specific rate of reduction of Fe3 to Fe2  with H2S (1/day) *=0.05 (Konovalov et al., 2006)
+      K_fe_ox1: 0.5          #! Specific rate of oxidation of Fe2 to Fe3  with O2 (1/d), =4. (Konovalov et al., 2006)
+      K_fe_ox2: 0.001        #! Specific rate of oxidation of Fe2 to Fe3  with MnO2 (1/d) =0.74 (Konovalov et al., 2006); 3x10^6 1/(M yr) is estimated in Van Cappellen-Wang-96 
+      K_fe_rd: 0.5           #! Specific rate of reduction of Fe3 to Fe2  with H2S (1/day) *=0.05 (Konovalov et al., 2006)
       K_fes: 2510.0          #!FeS equilibrium constant (Solubility Product Constant) (uM)=2510  ( 2.51x10-6 mol cm-3, Bektursuniva,11)  
       K_fes_form: 5.e-4      #!Specific rate of precipitation of FeS from Fe2 with H2S (1/day)=1.e-5 (4x10-3 1/yr, Bektursunova,11)
       K_fes_diss: 1.e-6      #!Specific rate of dissollution of FeS to Fe2 and H2S  (1/day)=3.e-6 (1x10-3 1/yr, Bektursunova,11)
@@ -162,7 +162,7 @@ instances:
       K_fes2_ox: 4.38e-4     #!specific rate of pyrite oxidation by O2  (1/uM/d)=4.38x10^(-4) 1/micromolar/day (Wijsman et al -2002). 
       s_feox_fe2: 0.001      #!threshold of Fe2 reduciton
       s_ferd_fe3: 0.01       #!threshold of Fe3 reduciton  (uM Fe)
-      K_feco3: 15.           #!10. !2.e-2 ! Conditional equilibrium constant %  1.8e-11 (M) (Internet)  1 uM2 for Mn2+CO3->FeCO3 (Meysman,2003)
+      K_feco3: 15.           #! Conditional equilibrium constant %  1.8e-11 (M) (Internet)  1 uM2 for Mn2+CO3->FeCO3 (Meysman,2003)
       K_feco3_diss: 7.e-4    #!Specific rate of dissolution of FeCO3 (1/day)=6.8e-7   !2.5 X 10-1 yr-1 (Van Cappellen, Wang, 1996) !1x10-4 yr-1 (Hunter et al, 98)
       K_feco3_form: 3.e-4    #!Specific rate of formation of FeCO3 (1/day)=2.7e-7  !! 1. X 10-4 yr-1(Van Cappellen, Wang, 1996)!1x10-4 yr-1 (Hunter et al, 98)
       K_feco3_ox: 0.0027     #!Specific rate of oxidation of FeCO3 with O2 (1/day)=0.0027  ( 1x10^(-6) M/yr (Van Cappellen, Wang, 1996).
@@ -178,7 +178,7 @@ instances:
       K_mnrd_hs: 1.0         #! half sat. of Mn reduction (uM S) (Yakushev,2013)
       K_ferd_hs: 1.0         #! half sat. of Fe reduction (uM S) (Yakushev,2013)
 #---- N---------!
-      K_DON_ox: 0.05         #! Specific rate of oxidation of DON with O2 (1/d) = 0.1(Savchuk, 2002) 
+      K_DON_ox: 0.0108         #! Specific rate of oxidation of DON with O2 (1/d) = 0.1(Savchuk, 2002) 
       K_PON_ox: 0.002        #! Specific rate of oxidation of PON with O2 (1/d) =0.002 (Savchuk, 2002), =0.07 (Gregoire, Lacroix, 2001)
       Tda: 13.0              #! Temperature control coefficient for OM decay (Burchard et al., 2006)
       beta_da: 20.0          #! Temperature control coefficient for OM decay (Burchard et al., 2006)
@@ -211,19 +211,19 @@ instances:
 #---- Si-------! 
       K_sipart_diss: 0.080   #! Si dissollution rate constant (1/d), =0.008 (Popova, Srokosz, 2009)
 #---- Bacteria-!       
-      K_Baae_gro: 0.1        #!  Baae maximum specific growth rate (1/d) (Yakushev, 2013)
+      K_Baae_gro: 0.02       #!  Baae maximum specific growth rate (1/d) (Yakushev, 2013)
       K_Baae_mrt: 0.005      #!  Baae specific rate of mortality (1/d) (Yakushev et al., 2013)
       K_Baae_mrt_h2s: 0.899  #!  Baae increased specific rate of mortality due to H2S (1/d) (Yakushev et al., 2013)
       limBaae: 2.0           #! Limiting parameter for nutrient consumprion by Baae (nd) (Yakushev, 2013)
-      K_Bhae_gro:  0.5       #!  Bhae maximum specific growth rate (1/d) (Yakushev, 2013)
-      K_Bhae_mrt:  0.01      #!  Bhae specific rate of mortality (1/d) (Yakushev, 2013)
+      K_Bhae_gro:  0.1       #!  Bhae maximum specific growth rate (1/d) (Yakushev, 2013)
+      K_Bhae_mrt:  0.02      #!  Bhae specific rate of mortality (1/d) (Yakushev, 2013)
       K_Bhae_mrt_h2s: 0.799  #!  Bhae increased specific rate of mortality due to H2S (1/d)  (Yakushev, 2013)      
       limBhae: 5.0           #! Limiting parameter for OM consumprion by Bhae (nd) (Yakushev, 2013)
-      K_Baan_gro: 0.2        #!  Baan maximum specific growth rate (1/d) (Yakushev, 2013)
-      K_Baan_mrt: 0.005      #!  Baan specific rate of mortality (1/d) (Yakushev, 2013)
+      K_Baan_gro: 0.01       #!  Baan maximum specific growth rate (1/d) (Yakushev, 2013)
+      K_Baan_mrt: 0.02      #!  Baan specific rate of mortality (1/d) (Yakushev, 2013)
       limBaan: 2.0           #! Limiting parameter for nutrient consumprion by Baan (nd) (Yakushev, 2013)
-      K_Bhan_gro: 0.15       #!  Bhan maximum specific growth rate (1/d) (Yakushev, 2013)
-      K_Bhan_mrt: 0.01       #!  Bhan specific rate of mortality (1/d) (Yakushev, 2013)
+      K_Bhan_gro: 0.01       #!  Bhan maximum specific growth rate (1/d) (Yakushev, 2013)
+      K_Bhan_mrt: 0.02       #!  Bhan specific rate of mortality (1/d) (Yakushev, 2013)
       K_Bhan_mrt_o2: 0.899   #!  Bhan increased specific rate of mortality due to O2 (1/d) (Yakushev, 2013)
       limBhan: 2.0           #! Limiting parameter for OM consumprion by Bhan (nd) (Yakushev, 2013) 
 #---- Stoichiometric coefficients ----!
