@@ -40,7 +40,7 @@ instances:
       bctype_bottom_niva_brom_bio_O2: 1
       bc_bottom_niva_brom_bio_O2: 0.
 #
-      bctype_top_niva_brom_redox_SO4: 1
+      bctype_top_niva_brom_redox_SO4: 4
       bc_top_niva_brom_redox_SO4: 22000.
       bctype_bottom_niva_brom_redox_SO4: 1
       bc_bottom_niva_brom_redox_SO4: 9000.

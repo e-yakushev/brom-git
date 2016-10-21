@@ -501,6 +501,12 @@
             !Variations read from netcdf
             if (bctype_top(i_water,ip).eq.3) bc_top(i_water,ip) = cc_top(i_water,ip,julianday)
             if (bctype_bottom(i_water,ip).eq.3) bc_bottom(i_water,ip) = cc_bottom(i_water,ip,julianday)
+            
+            !Variations read from ascii file and/or calculated as a function of something
+            if (bctype_top(i_water,ip).eq.4) bc_top(i_water,ip) = cc_hmix(i_water,ip,1,julianday)
+            if (bctype_top(i_water,ip).eq.4.and.ip.eq.id_SO4) bc_top(i_water,ip)=(0.1400_rk/96.062_rk)* &
+                (s(1,1,julianday)/1.80655_rk)*1.e6_rk
+             
         end do
 
 
