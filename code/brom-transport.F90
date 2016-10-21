@@ -441,7 +441,6 @@
     model_year = 0
     kzti = 0.0_rk
 
-
 !    Read ascii data for horizontal mixing
     hmix_rate=0.1    ! EYA
         hmix_niva_brom_bio_NO3 = get_brom_par('hmix_niva_brom_bio_NO3')    
@@ -464,6 +463,7 @@
             end do
             close(20)
         endif
+
 
     !convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
     if (bc_units_convert.eq.1) then
