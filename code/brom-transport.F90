@@ -43,7 +43,8 @@
     integer   :: i_day, year, days_in_yr, freq_turb, freq_sed, last_day   !time related
     integer   :: diff_method, kz_bbl_type, bioturb_across_SWI  !vertical diffusivity related
     real(rk)  :: K_O2s
-    integer   :: input_type, use_Eair, use_hice, port_initial_state !I/O related
+    integer   :: input_type, use_Eair, use_hice, port_initial_state
+    integer   :: hmix_niva_brom_bio_O2, hmix_niva_brom_bio_NO3 !I/O related
     character(len=64) :: icfile_name, outfile_name, ncoutfile_name
     integer   :: k_bbl_sed, k_max          !z-axis related
     integer   :: par_max                   !no. BROM variables
@@ -144,7 +145,6 @@
     allocate(is_solid(par_max))
     allocate(hmixtype(i_max,par_max))
     allocate(rho(par_max))
-
 
     !Retrieve the parameter names from the model structure
     do ip=1,par_max
@@ -442,28 +442,28 @@
     kzti = 0.0_rk
 
 
-    !Read ascii data for horizontal mixing
+!    Read ascii data for horizontal mixing
     hmix_rate=0.1    ! EYA
-!    if (hmix_niva_brom_bio_NO3.eq.2) then
-        open(20, file='spa_no3.dat')
-        do k=1,k_wat_bbl
-            do i=1,days_in_yr
-                read(20, *) ip,ip,cc_hmix(1,id_NO3,k,i) ! NODC data on NO3 i_water,ip,:,julianday)
+        hmix_niva_brom_bio_NO3 = get_brom_par('hmix_niva_brom_bio_NO3')    
+        if (hmix_niva_brom_bio_NO3.eq.2) then
+            open(20, file='spa_no3.dat')
+            do k=1,k_wat_bbl
+                do i=1,days_in_yr
+                    read(20, *) ip,ip,cc_hmix(1,id_NO3,k,i) ! NODC data on NO3 i_water,ip,:,julianday)
+                end do
             end do
-        end do
-        close(20)
-!    endif
-    
-!    if (hmix_niva_brom_bio_O2.eq.2) then    
-        open(20, file='spa_o2.dat')
-        do k=1,k_wat_bbl
-            do i=1,days_in_yr
-                read(20, *) ip,ip,cc_hmix(1,id_O2,k,i) ! NODC data on NO3 i_water,ip,:,julianday)
+            close(20)
+        endif
+        hmix_niva_brom_bio_O2 = get_brom_par('hmix_niva_brom_bio_O2')      
+        if (hmix_niva_brom_bio_O2.eq.2) then    
+            open(20, file='spa_o2.dat')
+            do k=1,k_wat_bbl
+                do i=1,days_in_yr
+                    read(20, *) ip,ip,cc_hmix(1,id_O2,k,i) ! NODC data on NO3 i_water,ip,:,julianday)
+                end do
             end do
-        end do
-        close(20)
- !   enddo
-
+            close(20)
+        endif
 
     !convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
     if (bc_units_convert.eq.1) then
