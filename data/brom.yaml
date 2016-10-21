@@ -262,7 +262,7 @@ instances:
       ncoutfile_name: BROM_Berre_out.nc          # netCDF output file name
       sediments_units_convert: 1                 # 1(default) to convert concentrations from 'mass/total volume' into'mass/pore water ml' for dissolved and 'mass/mass' for solids 
       outfile_name: finish.dat                   # ascii output file name
-      port_initial_state: 0                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
+      port_initial_state: 1                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
       icfile_name: start.dat                     # ascii initial condition file name (needed if port_initial_state = 1)
 #The following are only used if reading input from netCDF (input_type = 2)
 #Note: NetCDF variables (temperature, salinity, diffusivity) must have either two dimensions (depth, time) or four dimensions ((latitude, longitude, depth , time) or (longitude, latitude, depth, time))
