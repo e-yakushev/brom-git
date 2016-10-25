@@ -40,60 +40,62 @@ instances:
       bctype_bottom_niva_brom_bio_O2: 1
       bc_bottom_niva_brom_bio_O2: 0.
 #
-      bctype_top_niva_brom_redox_SO4: 4
-      bc_top_niva_brom_redox_SO4: 22000.
+      bctype_top_niva_brom_redox_SO4: 4 # surface SO4 is calculated from SO4/Salinity ratio
+#      a1top_niva_brom_redox_SO4: 20000
+#      a2top_niva_brom_redox_SO4: 2
+#      a3top_niva_brom_redox_SO4: 60.
       bctype_bottom_niva_brom_redox_SO4: 1
-      bc_bottom_niva_brom_redox_SO4: 9000.
+      bc_bottom_niva_brom_redox_SO4: 7000.
 #
       bctype_top_niva_brom_redox_Mn4: 1
-      bc_top_niva_brom_redox_Mn4: 10.E-4
+      bc_top_niva_brom_redox_Mn4: 5.E-4
 #
       bctype_top_niva_brom_redox_Fe3: 1
-      bc_top_niva_brom_redox_Fe3: 1.E-4
+      bc_top_niva_brom_redox_Fe3: 5.E-4
 #
       bctype_top_niva_brom_carb_Alk: 1
       bc_top_niva_brom_carb_Alk: 2300.
       bctype_bottom_niva_brom_carb_Alk: 1
-      bc_bottom_niva_brom_carb_Alk: 11500.
+      bc_bottom_niva_brom_carb_Alk: 8000.
 #
       bctype_bottom_niva_brom_carb_DIC: 1
-      bc_bottom_niva_brom_carb_DIC: 12000.
+      bc_bottom_niva_brom_carb_DIC: 7000.
 #
       bctype_bottom_niva_brom_bio_NH4: 1
-      bc_bottom_niva_brom_bio_NH4: 900.
+      bc_bottom_niva_brom_bio_NH4: 1500.
 #
       bctype_top_niva_brom_bio_NO3: 2
-      a1top_niva_brom_bio_NO3: 3. # 3
-      a2top_niva_brom_bio_NO3: 3.
+      a1top_niva_brom_bio_NO3: 3.5 # 3
+      a2top_niva_brom_bio_NO3: 3.5
       a3top_niva_brom_bio_NO3: 60.
       bctype_bottom_niva_brom_bio_NO3: 1
       bc_bottom_niva_brom_bio_NO3: 0.
 #
       bctype_top_niva_brom_bio_PO4: 2
-      a1top_niva_brom_bio_PO4: 0.6
-      a2top_niva_brom_bio_PO4: 0.6
+      a1top_niva_brom_bio_PO4: 2
+      a2top_niva_brom_bio_PO4: 2
       a3top_niva_brom_bio_PO4: 60. #60.
       bctype_bottom_niva_brom_bio_PO4: 1
       bc_bottom_niva_brom_bio_PO4: 60.
 #
       bctype_top_niva_brom_redox_Si: 2
-      a1top_niva_brom_redox_Si: 1.3
+      a1top_niva_brom_redox_Si: 1. #1.3
       a2top_niva_brom_redox_Si: 1.3
       a3top_niva_brom_redox_Si: 60.
       bctype_bottom_niva_brom_redox_Si: 1
-      bc_bottom_niva_brom_redox_Si: 3800.
+      bc_bottom_niva_brom_redox_Si: 800. #2000. #3800.
 #
       bctype_bottom_niva_brom_redox_H2S: 1
-      bc_bottom_niva_brom_redox_H2S: 1000.
+      bc_bottom_niva_brom_redox_H2S: 1600.
 #
       bctype_bottom_niva_brom_redox_MnCO3: 1
-      bc_bottom_niva_brom_redox_MnCO3: 10.
+      bc_bottom_niva_brom_redox_MnCO3: 0.5
 #
       bctype_bottom_niva_brom_redox_FeCO3: 1
       bc_bottom_niva_brom_redox_FeCO3: 20.
 #
       bctype_bottom_niva_brom_redox_FeS2: 1
-      bc_bottom_niva_brom_redox_FeS2: 10.
+      bc_bottom_niva_brom_redox_FeS2: 50.
 #
 #Here we convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
 #     0 not to convert 
@@ -105,6 +107,7 @@ instances:
 #Here we specify horizontal mixing model using hmix_<variable name>
 #     0 to assume no horizontal mixing (default, does not need to be explicitly set)
 #     1 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by netCDF input file and hmix_rate specified here
+#     2 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by ASCII input file and hmix_rate specified here     
 #
       hmix_niva_brom_bio_NO3: 0
       hmix_niva_brom_bio_NH4: 0
@@ -255,6 +258,8 @@ instances:
       phi_0:           0.95    # Maximum porosity at the SWI (default = 0.95, following Soetaert et al., 1996)
       phi_inf:         0.80    # Minimum porosity deep in the sediments (default = 0.80, following Soetaert et al., 1996)
       z_decay_phi:     0.04    # Exponential decay scale for excess porosity in the upper sediments [m] (default = 0.04, following Soetaert et al., 1996)
+      wat_con_0:       0.90    # Water content at the SWI
+      wat_con_inf:     0.50    # Water content deep in the sediments
 #
 #
 ##---I/O options-----------------------------------------------------------------------------------
