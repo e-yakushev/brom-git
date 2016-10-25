@@ -83,7 +83,7 @@ instances:
       a2top_niva_brom_redox_Si: 1.3
       a3top_niva_brom_redox_Si: 60.
       bctype_bottom_niva_brom_redox_Si: 1
-      bc_bottom_niva_brom_redox_Si: 800. #2000. #3800.
+      bc_bottom_niva_brom_redox_Si: 1000. #800.# too low si for berre #2000. #3800.
 #
       bctype_bottom_niva_brom_redox_H2S: 1
       bc_bottom_niva_brom_redox_H2S: 1600.
